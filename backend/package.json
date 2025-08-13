@@ -1,0 +1,18 @@
+{
+  "name": "statera",
+  "version": "1.0.0",
+  "description": "projeto venturus da etec bento quirino",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "start": "nodemon server.js"
+  },
+  "author": "ThiagoLMattos",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0",
+    "nodemon": "^3.1.10",
+    "sequelize": "^6.37.7",
+    "sqlite3": "^5.1.7"
+  }
+}
