@@ -92,17 +92,17 @@ cd Statera
 
 ---
 
-## 📡 **Funcionalidades**
+## 💠 **Funcionalidades**
 
-🔹 🚀 Conversão de Texto para Áudio: Transforma qualquer texto em áudio com alta qualidade usando node-gtts.
+ 🔹 Gestão de Animais: Cadastro, visualização, atualização e remoção de animais disponíveis para adoção, com campos detalhados como espécie, porte, status de castração e vacinação.
 
-🔹 ⠿ Conversão de Texto para Braille e Braille para Texto: Transforma qualquer texto em braille ou braille em texto utilizando um sistema de mapeamento de pontos Braille.
+ 🔹 Gestão de Tutores: Registro de novos usuários com dados pessoais, incluindo um questionário detalhado para avaliar o perfil do potencial adotante. Isso garante que os animais sejam encaminhados para lares compatíveis e responsáveis.
 
-🔹 📸 Descrição de Imagem: Descreve detalhadamente imagens, inclusive as que possuem algum texto, este também é apresentado.
+ 🔹 Processo de Adoção: Criação de pedidos de adoção que são organizados em uma fila de análise. O sistema assegura que apenas tutores com o questionário preenchido possam solicitar a adoção, mantendo a integridade do processo.
 
-🔹 📝 Resumo Inteligente de Textos: Utiliza uma API do Gemini 1.5 Flash para criar versões compactas dos textos, facilitando a compreensão.
+ 🔹 Área Administrativa: Endpoints exclusivos para administradores, que permitem a visualização de todos os animais (mesmo os adotados), a atualização de seus status e a remoção de perfis. Isso garante controle e segurança sobre as informações da plataforma.
 
-🔹 🔒 Autenticação Segura: Implementação de cadastro e login com autenticação JWT, garantindo segurança aos usuários.
+ 🔹 Apoio Financeiro: Um endpoint dedicado para registro de doações, que gera um link e um QR Code Pix para facilitar o apoio à ONG.
 
 ---
 
