@@ -58,40 +58,6 @@ cd Statera
 
 ```
 
-### **Frontend Web**
-
-1️⃣ Instalar dependências:
-
-```bash
-  npm install
-
-```
-
-2️⃣ Iniciar o projeto:
-
-```bash
-  npm start
-
-```
-
-### **Frontend Mobile**
-
-1️⃣ Instalar dependências:
-
-```bash
-  npm install
-
-```
-
-2️⃣ Rodar no navegador:
-
-```bash
-  npx expo start --web
-
-```
-
----
-
 ## 💠 **Funcionalidades**
 
  🔹 Gestão de Animais: Cadastro, visualização, atualização e remoção de animais disponíveis para adoção, com campos detalhados como espécie, porte, status de castração e vacinação.
@@ -118,29 +84,29 @@ cd Statera
 
 | Método | Rota | Descrição |
 | --- | --- | --- |
-| POST | /animais | Cadastra um novo animal disponível para adoção |
 | GET | /animais |  Lista os animais disponíveis para adoção com suporte a filtros |
-| POST | /tutores |  Cadastra um novo usuario com seus dados |
-| PATCH | /tutores/:id | Permite ao tutor atualizar seus dados e/ou completar o questionário obrigatório |
 | GET | /tutores/:id | Retorna os dados e o questionário preenchido do tutor. |
+| GET | /admin/animais | Permite ao administrador visualizar todos os animais com filtros avançados  |
+| GET | /animais/:id | Busca um animal por seu id e retorna todas as informações do animal com lista de pedidos (interessados) |
+| POST | /animais | Cadastra um novo animal disponível para adoção |
+| POST | /tutores |  Cadastra um novo usuario com seus dados |
 | POST | /questionário | Cadastra o questionário que o tutor precisa responder para adotar |
 | POST | /adocoes | Cria um novo pedido de adoção |
-| GET | /admin/animais | Permite ao administrador visualizar todos os animais com filtros avançados  |
-| PATCH | /admin/animais/:id | Atualiza status do animal ( vacinado/castrado/etc |
-| DELETE | /admin/animais/:id | Remove um animal da base de dado |
-| GET | /animais/:id | Busca um animal por seu id e retorna todas as informações do animal com lista de pedidos (interessados) |
 | POST | /login | Realizar a validação do email e senha registrados pelo usuário |
 | POST | /doacoes | Registra uma doação recebida com nome, valor e data. |
+| PATCH | /tutores/:id | Permite ao tutor atualizar seus dados e/ou completar o questionário obrigatório |
+| PATCH | /admin/animais/:id | Atualiza status do animal ( vacinado/castrado/etc |
+| DELETE | /admin/animais/:id | Remove um animal da base de dado |
 
 ---
 
 ## 💠 **Tecnologias utilizadas**
 
-🔹 **Node.js + Express.js** → Escolhemos **Node.js** por sua eficiência em operações assíncronas e escalabilidade para múltiplas requisições simultâneas. A utilização de **Express.js** facilita a organização das rotas REST, permitindo uma estrutura modular e expansível.
+🔹 **Node.js + Express.js** → utilizamos **Node.js** pela sua leveza e capacidade de lidar com operações assíncronas de forma eficiente. **Express.js** foi escolhido para estruturar as rotas REST de maneira simples e modular, acelerando o desenvolvimento da API.
 
-🔹 **JWT (JSON Web Token)** → Implementamos **JWT** para autenticação segura, garantindo sessões protegidas sem necessidade de consultas frequentes ao banco de dados.
+🔹 **Sequelize** → optamos pelo **Sequelize** como ORM para mapear nossos modelos de dados e facilitar a comunicação com o banco relacional. Ele gerencia migrations, define validações de campos e mantém automaticamente os campos createdAt e updatedAt em todas as tabelas.
 
-🔹 **SQLite + Sequelize** → O projeto utiliza **SQLite** para armazenar os dados localmente, garantindo rapidez e portabilidade, combinado com **Sequelize** para gerenciamento ORM, facilitando consultas e manipulação de dados.
+🔹 **SQLite** → empregamos SQLite como banco de dados relacional embarcado, garantindo portabilidade e rapidez sem necessidade de servidor externo. Também é possível substituir por outro banco compatível com Sequelize sem alterar a estrutura do projeto.
 
 [My Skills](https://skillicons.dev/icons?i=nodejs,npm,sqlite,sequelize&theme=light)
 
