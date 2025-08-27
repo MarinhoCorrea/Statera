@@ -34,7 +34,8 @@ export const GetAnimalsService = async (filtros) => {
 
     // Realiza uma busca nos animais disponíveis com os filtros
     const filteredAvaliableAnimals = await Animal.findAll({
-        where: whereClause
+        where: whereClause,
+        order: [['createdAt', 'ASC']]
     });
 
     // Retorna em caso de não ter aniamis disponíveis com os filtros
@@ -45,3 +46,28 @@ export const GetAnimalsService = async (filtros) => {
     // Sucesso
     return filteredAvaliableAnimals;
 }
+
+//Revisar essa parte
+export const CreateAnimalService = async (dadosAnimal) => {
+  try {
+    // Validação básica – pode ser refinada conforme regras de negócio
+    if (!dadosAnimal.nome || !dadosAnimal.especie || !dadosAnimal.porte) {
+      console.error("Todos os campos obrigatórios devem ser preenchidos corretamente.");
+    }
+
+    const novoAnimal = await Animal.create({
+      nome: dadosAnimal.nome,
+      especie: dadosAnimal.especie,
+      porte: dadosAnimal.porte,
+      castrado: dadosAnimal.castrado ?? false,
+      vacinado: dadosAnimal.vacinado ?? false,
+      descricao: dadosAnimal.descricao,
+      foto: dadosAnimal.foto, // armazenado como buffer
+      adotado: false // sempre falso no cadastro
+    });
+
+    return novoAnimal;
+  } catch (error) {
+    console.error("Erro ao cadastrar o animal: " + error.message);
+  }
+};
