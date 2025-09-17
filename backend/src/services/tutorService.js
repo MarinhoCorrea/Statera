@@ -1,8 +1,11 @@
 import { Tutor } from '../models/Tutor.js';
-import encrypt from 'encryptjs';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
 
-//revisar tudo isso 
 
+
+// Post Tutores
 export const CreateTutorService = async (dadosTutor) => {
   try {
     // validação básica
@@ -18,7 +21,7 @@ export const CreateTutorService = async (dadosTutor) => {
 
     // criptografa a senha
     const secretKey = "chave-secreta"; 
-    const senhaCriptografada = encrypt.encrypt(dadosTutor.senha, secretKey, 256);
+    const senhaCriptografada = bcrypt.hash(dadosTutor.senha, secretKey, 256);
 
     // cria o tutor
     const novoTutor = await Tutor.create({
@@ -38,3 +41,29 @@ export const CreateTutorService = async (dadosTutor) => {
     console.error(error.message);
   }
 };
+// Post Login
+export const SignInService = async (email, senha)  => {
+  const tutor = await Tutor.findOne({ where: { email } });
+
+  if (!tutor) {
+    return { status: 404, message:'Usuário não encontrado'};
+  }
+
+  const valid = await bcrypt.compare(senha, tutor.senha);
+
+  if (!valid) {
+    return { status: 401, message:'Login inválido' };
+  }
+
+  const token = jwt.sign(
+    { id: tutor.id, email: tutor.email},
+    process.env.JWT_SECRET,
+    { expiresIn: '6h' }
+  );
+
+  return {
+    status: 200,
+    token,
+    tutor
+  }
+}
