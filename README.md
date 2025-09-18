@@ -117,6 +117,7 @@ cd Statera
 
 ## 👥 **Autores do Projeto**
 
+- Muryllo Jesus Alves Linhares
 - Pedro Marinho Rodriguês Camargo Corrêa
 - Pedro Isaías Gomes de Jesus
 - Pyetro Fabrício Peterlini
