@@ -2,7 +2,7 @@
     import { Tutor } from '../models/Tutor.js';
     import { Animal } from '../models/Animal.js';
 
-    export const CriarAdocaoService = async ({ tutor_id, animal_id }) => {
+    export const CreateAdocaoService = async ({ tutor_id, animal_id }) => {
         try {
             // Verifica a existencia do animal e do tutor
             const [tutor, animal] = await Promise.all([

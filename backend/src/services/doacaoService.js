@@ -1,7 +1,7 @@
 import QRCode from "qrcode";
 import { Doacao } from "../models/Modelos.js";
 
-export const criarDoacaoService = async (dados) => {
+export const CreateDoacaoService = async (dados) => {
   const { nome, email, valor, mensagem } = dados;
 
   // validação do valor

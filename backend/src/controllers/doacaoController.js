@@ -1,6 +1,6 @@
 import { criarDoacaoService } from "../services/doacaoService.js";
 
-export const criarDoacao = async (req, res) => {
+export const CreateDoacaoController = async (req, res) => {
   try {
     const dados = req.body;
     const doacao = await criarDoacaoService(dados);

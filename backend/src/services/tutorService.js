@@ -1,9 +1,6 @@
 import { Tutor } from '../models/Tutor.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
-
-
 
 // Post Tutores
 export const CreateTutorService = async (dadosTutor) => {
@@ -17,6 +14,7 @@ export const CreateTutorService = async (dadosTutor) => {
     const tutorExistente = await Tutor.findOne({ where: { email: dadosTutor.email } });
     if (tutorExistente) {
       console.error("Email preenchido já está sendo utilizado.");
+    
     }
 
     // criptografa a senha

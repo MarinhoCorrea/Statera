@@ -1,6 +1,13 @@
 import express from 'express';
-import { CreateAdocaoService,  } from '../services/adocaoService';
+import { CreateAdocaoController, DeleteAdocaoController } from '../controllers/adocaoController';
+
+const express = require('express');
+const db = require('../../stateraDB');
 
 const router = express.Router();
 
-router.get('/PedidoAdocao', CreateAdocao)
+router.post('/PedidoAdocao', (req, res) => {
+    db.all
+})
+
+export default router;

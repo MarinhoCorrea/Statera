@@ -1,9 +1,9 @@
-import { CriarAdocaoService, DeleteAdocaoService } from "../services/adocaoService";
+import { CreateAdocaoService, deleteAdocaoService } from "../services/adocaoService";
 
-export const CriarAdocao = async (req, res) => {
+export const CreateAdocaoController = async (req, res) => {
     try {
         const { tutor_id, animal_id } = req.body;
-        const novoPedido = await CriarAdocaoService({ tutor_id, animal_id });
+        const novoPedido = await CreateAdocaoService({ tutor_id, animal_id });
         return res.status(201).json(novoPedido);
     }
     catch (error)
@@ -11,7 +11,7 @@ export const CriarAdocao = async (req, res) => {
         if (error.status) {
             return res.status(error.status).json({ erro: error.message });
         }
-        return res.status(500).json({erro: 'Erro ao registrar o pedido de adoção'});
+        return res.status(500).json({ erro: 'Erro ao registrar o pedido de adoção' });
     }
 };
 
@@ -25,6 +25,6 @@ export const DeleteAdocaoController = async (req, res) => {
         if (error.status) {
             return res.status(error.status).json({ erro: error.message });
         }
-        return res.status(500).json({ erro: 'Erro ao remover o pedido de adoção'});
+        return res.status(500).json({ erro: 'Erro ao remover o pedido de adoção' });
     }
-}
+};
