@@ -6,4 +6,4 @@ const router = express.Router();
 // POST /tutores
 router.post('/tutores', CreateTutorController);
 
-export default router;
+export default tutorRoutes;

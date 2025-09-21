@@ -6,4 +6,4 @@ const router = Router();
 // POST /doacoes
 router.post("/doacoes", criarDoacao);
 
-export default router;
+export default doacaoRoutes;

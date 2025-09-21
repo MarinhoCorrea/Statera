@@ -2,10 +2,10 @@
   "name": "statera",
   "version": "1.0.0",
   "description": "projeto venturus da etec bento quirino",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "test",
-    "start": "nodemon server.js"
+    "start": "server.js"
   },
   "author": "ThiagoLMattos",
   "license": "ISC",

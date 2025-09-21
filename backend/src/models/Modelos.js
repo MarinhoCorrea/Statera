@@ -7,7 +7,7 @@ import DoacaoModel from './Doacao.js';
 
 export const sequelize = new Sequelize({
     dialect: 'sqlite',
-    storage: './statera.db',
+    storage: './statera.db', // ./database.sqlite
 });
 
 export const Animal = AnimalModel(sequelize);
@@ -52,7 +52,5 @@ PedidoAdocao.belongsTo(Animal, {
 
 // Explicação das associações:
 // A tabela PedidosAdocao serve como uma tabela de junção entre Tutores e Animais.
-
-await sequelize.sync({ alter: true });
 
 export default { sequelize, Animal, Tutor, Questionario, PedidoAdocao, Doacao };

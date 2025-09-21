@@ -1,4 +1,4 @@
-import { CreateTutorService } from '../services/tutorService.js';
+import { CreateTutorService, GetTutorByIdService } from '../services/tutorService.js';
 
 export const CreateTutorController = async (req, res) => {
   try {
@@ -14,3 +14,20 @@ export const CreateTutorController = async (req, res) => {
     return res.status(500).json({ erro: "Erro interno ao cadastrar o tutor." });
   }
 };
+
+export const GetTutorByIdController = async (req, res) => {
+  try {
+    const id = req.query;
+    const tutor = await GetTutorByIdService(id);
+    
+    if (tutor.message) {
+      return res.status(404).json(tutor);
+    }
+
+    return res.status(200).json(tutor);
+  } 
+  catch (error) {
+    console.error('Erro ao buscar um tutor', error);
+    return res.status(500).json({ error: 'Ocorreu um erro interno. Tente novamente mais tarde.'})
+  }
+}

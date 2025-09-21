@@ -1,9 +1,9 @@
-import { GetanimalsService, Createanimalservice } from '../services/animalService';
+import { GetAnimalsService, Createanimalservice } from '../services/animalService';
 
-export const Getanimals = async (req, res) => {
+export const GetAnimalController = async (req, res) => {
     try {
         const filtros = req.query;
-        const animais = await GetanimalsService(filtros);
+        const animais = await GetAnimalsService(filtros);
 
         if (animais.message) {
             return res.status(404).json(animais);
@@ -11,14 +11,14 @@ export const Getanimals = async (req, res) => {
 
         return res.status(200).json(animais);
     } catch (error) {
-        console.log('Erro ao buscar animais: ', error);
+        console.error('Erro ao buscar animais: ', error);
         return res.status(500).json({ error: 'Ocorreu um erro interno. Tente novamente mais tarde' });
     }
 }
 //Revisar essa parte
 export const CreateAnimalController = async (req, res) => {
   try {
-    const novoAnimal = await Createanimalservice(req.body);
+    const novoAnimal = await CreateAnimalService(req.body);
 
     return res.status(201).json(novoAnimal);
   } catch (error) {

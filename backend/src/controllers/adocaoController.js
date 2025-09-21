@@ -1,4 +1,4 @@
-import { CreateAdocaoService, deleteAdocaoService } from "../services/adocaoService";
+import { CreateAdocaoService, DeleteAdocaoService } from "../services/adocaoService";
 
 export const CreateAdocaoController = async (req, res) => {
     try {

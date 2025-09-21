@@ -1,9 +1,10 @@
 import express from 'express';
-import { GetAnimals, CreateAnimalController } from '../controllers/animalController'; 
+import { GetAnimalsController, CreateAnimalController } from '../controllers/animalController'; 
 
 const router = express.Router();
 
-router.get('/animais', GetAnimals);
+router.get('/animais', GetAnimalsController);
+
 router.post('/animais', CreateAnimalController); 
 
-export default router;
+export default animalRoutes;
