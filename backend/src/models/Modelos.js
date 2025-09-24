@@ -1,6 +1,6 @@
 import { Sequelize } from 'sequelize';
 import AnimalModel from './Animal.js';
-import TutorModel from './Tutor.js';
+import TutorModel from './Usuario.js';
 import QuestionarioModel from './Questionario.js';
 import PedidoAdocaoModel from './PedidoAdocao.js';
 import DoacaoModel from './Doacao.js';

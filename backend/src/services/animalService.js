@@ -1,4 +1,4 @@
-import { Animal } from '../models/Animal';
+import { Animal } from '../models/Modelos.js';
 
 export const GetAnimalsService = async (filtros) => {
 

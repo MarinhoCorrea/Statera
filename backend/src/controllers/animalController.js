@@ -1,6 +1,6 @@
 import express from 'express';
-import { GetAnimalsService } from '../services/animalService';
-import { Animal } from '../models/Animal';
+import { GetAnimalsService, CreateAnimalService } from '../services/animalService.js';
+import { Animal } from '../models/Modelos.js';
 
 export const GetAnimals = async (req, res) => {
     try {
@@ -27,7 +27,6 @@ export const CreateAnimalController = async (req, res) => {
     if (error.message.includes("campos obrigatórios")) {
       return res.status(400).json({ erro: error.message });
     }
-
-    return res.status(500).json({ erro: "Erro interno ao cadastrar o animal." });
+    return res.status(500).json({ erro:'Ocorreu um erro interno. Tente novamente mais tarde' });
   }
 }

@@ -1,6 +1,6 @@
-import { CriarAdocaoService, DeleteAdocaoService } from "../services/adocaoService";
+import { CriarAdocaoService } from "../services/adocaoService.js";
 
-export const CriarAdocao = async (req, res) => {
+export const CriarAdocaoController = async (req, res) => {
     try {
         const { tutor_id, animal_id } = req.body;
         const novoPedido = await CriarAdocaoService({ tutor_id, animal_id });

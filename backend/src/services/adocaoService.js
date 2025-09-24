@@ -1,6 +1,6 @@
-    import { PedidoAdocao } from '../models/PedidoAdocao';
-    import { Tutor } from '../models/Tutor.js';
-    import { Animal } from '../models/Animal.js';
+    import { PedidoAdocao } from '../models/Modelos.js';
+    import { Tutor } from '../models/Modelos.js';
+    import { Animal } from '../models/Modelos.js';
 
     export const CriarAdocaoService = async ({ tutor_id, animal_id }) => {
         try {
