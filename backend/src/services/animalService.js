@@ -40,7 +40,7 @@ export const GetAnimalsService = async (filtros) => {
 
     // Retorna em caso de não ter aniamis disponíveis com os filtros
     if (filteredAvaliableAnimals.length === 0) {
-        return { message: "Nenhum animal disponível para adoção foi encontrado com os filtros selecionados." }
+        console.error('Nenhum animal disponível para adoção foi encontrado com os filtros selecionados.');
     }
 
     // Sucesso
@@ -48,7 +48,7 @@ export const GetAnimalsService = async (filtros) => {
 }
 
 //Revisar essa parte
-export const CreateAnimalService = async (dadosAnimal) => {
+export const PostAnimalService = async (dadosAnimal) => {
   try {
     // Validação básica – pode ser refinada conforme regras de negócio
     if (!dadosAnimal.nome || !dadosAnimal.especie || !dadosAnimal.porte) {

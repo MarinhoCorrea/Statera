@@ -1,8 +1,8 @@
-import { CreateTutorService } from '../services/tutorService.js';
+import {PostTutorService } from '../services/tutorService.js';
 
-export const CreateTutorController = async (req, res) => {
+export const PostTutor = async (req, res) => {
   try {
-    const novoTutor = await CreateTutorService(req.body);
+    const novoTutor = await PostTutorService(req.body);
     return res.status(201).json(novoTutor);
   } catch (error) {
     if (error.message.includes("Todos os campos obrigatórios devem ser preenchidos corretamente")) {

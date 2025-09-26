@@ -2,7 +2,7 @@
     import { Tutor } from '../models/Modelos.js';
     import { Animal } from '../models/Modelos.js';
 
-    export const CriarAdocaoService = async ({ tutor_id, animal_id }) => {
+    export const PostAdocaoService = async ({ tutor_id, animal_id }) => {
         try {
             // Verifica a existencia do animal e do tutor
             const [tutor, animal] = await Promise.all([
@@ -49,7 +49,7 @@
             return novoPedido;
 
         } catch (error) {
-            console.error('Erro no CreateAdocaoService', error.message);
-            console.error('Erro ao registrar o pedido de adoção');
+            console.error('Erro ao registrar o pedido de adoção', error.message);
         }
     };
+

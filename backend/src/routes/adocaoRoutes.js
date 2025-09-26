@@ -1,9 +1,8 @@
 import express from 'express';
-import { CriarAdocaoController } from '../controllers/adocaoController.js';
+import { PostAdocao } from '../controllers/adocaoController.js';
 
 const router = express.Router();
 
-router.get('/', CriarAdocaoController);
-
+router.post('/', PostAdocao);
 
 export default router;

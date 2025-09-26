@@ -1,9 +1,9 @@
-import { criarDoacaoService } from "../services/doacaoService.js";
+import {PostDoacaoService} from "../services/doacaoService.js";
 
-export const criarDoacao = async (req, res) => {
+export const PostDoacao = async (req, res) => {
   try {
     const dados = req.body;
-    const doacao = await criarDoacaoService(dados);
+    const doacao = await PostDoacaoService(dados);
     return res.status(201).json(doacao);
   } catch (error) {
     console.error("Erro ao registrar doação:", error);

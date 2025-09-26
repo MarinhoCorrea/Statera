@@ -1,9 +1,9 @@
-import { CriarAdocaoService } from "../services/adocaoService.js";
+import { CriarAdocaoService, PostAdocaoService } from "../services/adocaoService.js";
 
-export const CriarAdocaoController = async (req, res) => {
+export const PostAdocao = async (req, res) => {
     try {
         const { tutor_id, animal_id } = req.body;
-        const novoPedido = await CriarAdocaoService({ tutor_id, animal_id });
+        const novoPedido = await PostAdocaoService({ tutor_id, animal_id });
         return res.status(201).json(novoPedido);
     }
     catch (error)
@@ -15,7 +15,7 @@ export const CriarAdocaoController = async (req, res) => {
     }
 };
 
-export const DeleteAdocaoController = async (req, res) => {
+export const DeleteAdocaoController = async (req, res) => { //Necessario fazer o service dessa função
     try {
         const { id } = req.params;
         await DeleteAdocaoService(id);

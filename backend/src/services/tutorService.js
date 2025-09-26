@@ -6,16 +6,16 @@ import dotenv from 'dotenv';
 
 
 // Post Tutores
-export const CreateTutorService = async (dadosTutor) => {
+export const PostTutorService = async (dadosTutor) => {
   // validação básica
   if (!dadosTutor.nome_completo || !dadosTutor.email || !dadosTutor.senha) {
-    throw new Error("Todos os campos obrigatórios devem ser preenchidos corretamente.");
+    console.error("Todos os campos obrigatórios devem ser preenchidos corretamente.");
   }
 
   // verifica se o email já existe
   const tutorExistente = await Tutor.findOne({ where: { email: dadosTutor.email } });
   if (tutorExistente) {
-    throw new Error("O email preenchido já está sendo utilizado.");
+    console.error("O email preenchido já está sendo utilizado.");
   }
 
   // criptografa a senha corretamente

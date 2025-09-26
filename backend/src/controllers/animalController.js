@@ -1,5 +1,5 @@
 import express from 'express';
-import { GetAnimalsService, CreateAnimalService } from '../services/animalService.js';
+import { GetAnimalsService, CreateAnimalService, PostAnimalService } from '../services/animalService.js';
 import { Animal } from '../models/Modelos.js';
 
 export const GetAnimals = async (req, res) => {
@@ -17,10 +17,10 @@ export const GetAnimals = async (req, res) => {
         return res.status(500).json({ error: 'Ocorreu um erro interno. Tente novamente mais tarde' });
     }
 }
-//Revisar essa parte
-export const CreateAnimalController = async (req, res) => {
+
+export const PostAnimal = async (req, res) => {
   try {
-    const novoAnimal = await CreateAnimalService(req.body);
+    const novoAnimal = await PostAnimalService(req.body);
 
     return res.status(201).json(novoAnimal);
   } catch (error) {

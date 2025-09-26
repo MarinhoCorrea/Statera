@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { criarDoacao } from "../controllers/doacaoController.js";
+import { PostDoacao } from "../controllers/doacaoController.js";
 
 const router = Router();
 
 // POST /doacoes
-router.post("/doacoes", criarDoacao);
+router.post("/doacoes", PostDoacao);
 
 export default router;
