@@ -1,17 +1,29 @@
-import {PostDoacaoService} from "../services/doacaoService.js";
+import { SignInService } from '../services/authService.js';
 
-export const PostDoacao = async (req, res) => {
+export const PostLogin = async (req, res) => {
+
+  const { email, senha } = req.body;
+
+  if (!email || !senha) {
+    return res.status(400).json({ erro: "Email e senha são obrigatórios." });
+  }
+
   try {
-    const dados = req.body;
-    const doacao = await PostDoacaoService(dados);
-    return res.status(201).json(doacao);
-  } catch (error) {
-    console.error("Erro ao registrar doação:", error);
 
-    if (error.status === 400) {
-      return res.status(400).json({ erro: error.message });
+    const resultado = await SignInService(email, senha);
+
+    return res.status(200).json(resultado);
+
+  } catch (error) {
+
+    if (error.name !== "CredenciaisInvalidasError") {
+      console.error("Erro inesperado no login:", error);
     }
 
-    return res.status(500).json({ erro: "Erro ao processar a doação" });
+    if (error.name === "CredenciaisInvalidasError") {
+      return res.status(401).json({ erro: error.message });
+    }
+
+    return res.status(500).json({ erro: "Erro interno ao tentar fazer o login." });
   }
 };
