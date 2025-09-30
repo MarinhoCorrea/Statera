@@ -1,55 +1,64 @@
-    import { PedidoAdocao } from '../models/Modelos.js';
-    import { Tutor } from '../models/Modelos.js';
-    import { Animal } from '../models/Modelos.js';
+import { PedidoAdocao, Tutor, Animal, Questionario } from '../models/Modelos.js'
 
-    export const PostAdocaoService = async ({ tutor_id, animal_id }) => {
-        try {
-            // Verifica a existencia do animal e do tutor
-            const [tutor, animal] = await Promise.all([
-                Tutor.findbyPk(tutor_id),
-                Animal.findbyPk(animal_id),
-            ]);
-            
-            if (!tutor | !animal) {
-                console.error('Tutor ou animal não encontrado');
-            }
-            // Verifica se o tutor respondeu o questionario
-            if (!tutor.questionario_preenchido) {
-                console.error('O tutor ainda não respondeu o questionário obrigatório'
-                );
-            }
+export const PostAdocaoService = async ({ tutorId, animalId }) => {
 
-            // Verifica a existência de um pedido de adocao deste tutor ou animal
-            const pedidoExistente = await PedidoAdocao.findOne({
-                tutor_id,
-                animal_id,
-                status: 'em analise',
-            });
+    const [tutor, animal] = await Promise.all([
+        Tutor.findByPk(tutorId),
+        Animal.findByPk(animalId),
+    ]);
 
-            if (pedidoExistente) {
-                console.error('Este tutor já tem um pedido de adoção para este animal');
-            } 
+    if (!tutor | !animal) {
+        const error = new Error("Tutor ou animal não encontrado");
+        error.name = "NaoEncontradoError";
+        throw error;
+    }
 
-            // Cálculo da posição na fila
-            const totalPedidosParaAnimal = await PedidoAdocao.count({
-                where: { animal_id },
-            });
+    const questionario = await Questionario.findOne({ where: { tutorId: tutorId } });
 
-            // A posição do novo pedido será o total + 1
-            const novaPosicao = totalPedidosParaAnimal + 1;
+    if (!questionario) { 
+        const error = new Error("O tutor ainda não respondeu o questionário obrigatório");
+        error.name = "QuestionarioAusenteError";
+        throw error;
+    }
 
-            // Criação do novo pedido
-            const novoPedido = await PedidoAdocao.create ({
-                tutor_id,
-                animal_id,
-                status: 'em analise',
-                posicao_fila: novaPosicao,
-            });
+    if (animal.adotado === true) {
+        const error = new Error("Este animal já foi adotado.");
+        error.name = "AnimalAdotadoError";
+        throw error;
+    }
 
-            return novoPedido;
+    const pedidoExistente = await PedidoAdocao.findOne({
+        where: {
+            tutorId: tutor.id,
+            animalId: animal.id,
+            status: 'em_analise',
+        },
+    });
 
-        } catch (error) {
-            console.error('Erro ao registrar o pedido de adoção', error.message);
-        }
-    };
+    if (pedidoExistente) {
+        const error = new Error("Este tutor já tem um pedido de adoção ativo para este animal");
+        error.name = "ConflitoPedidoError";
+        throw error;
+    }
+
+    const totalPedidosParaAnimal = await PedidoAdocao.count({
+        where: {
+            animalId: animal.id,
+            status: 'em_analise',
+        },
+    });
+
+    const novaPosicao = totalPedidosParaAnimal + 1;
+
+    const novoPedido = await PedidoAdocao.create({
+        tutorId: tutor.id,
+        animalId: animal.id,
+        status: 'em_analise',
+        posicao_fila: novaPosicao,
+    });
+
+    const pedidoRetorno = novoPedido.toJSON();
+
+    return pedidoRetorno;
+};
 
