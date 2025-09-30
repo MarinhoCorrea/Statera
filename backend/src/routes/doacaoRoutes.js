@@ -3,7 +3,6 @@ import { PostDoacao } from "../controllers/doacaoController.js";
 
 const router = Router();
 
-// POST /doacoes
-router.post("/doacoes", PostDoacao);
+router.post("/", PostDoacao);
 
 export default router;

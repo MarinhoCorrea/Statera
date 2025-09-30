@@ -5,8 +5,10 @@ export const PostDoacaoService = async (dados) => {
   const { nome, email, valor, mensagem } = dados;
 
   // validação do valor
-  if (!valor || isNaN(valor) || valor <= 0) {
-    throw { status: 400, message: "Valor da doação é obrigatório e deve ser um número positivo" };
+  if (!valor || isNaN(valor) || valor <= 0 || !nome || !mensagem) {
+    const error = new Error("Valor da doação, nome e mensagem são obrigatórios. O valor deve ser um número positivo.");
+    error.name = "DoacaoInvalidaError";
+    throw error;
   }
 
   // link PIX fictício (exemplo simplificado)
