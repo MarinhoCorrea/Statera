@@ -41,7 +41,7 @@ export default (sequelize) => {
             set(value) {
                 this.setDataValue('idades_criancas', JSON.stringify(value));
             },
-            allowNull: true // Assumindo que pode ser nulo se não houver crianças.
+            allowNull: true 
         },
         residencia_tipo: {
             type: DataTypes.STRING,
