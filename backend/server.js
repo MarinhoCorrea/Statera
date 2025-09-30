@@ -14,10 +14,8 @@ import doacaoRoutes from './src/routes/doacaoRoutes.js';
 import questionarioRoutes from './src/routes/questionarioRoutes.js';
 import tutorRoutes from './src/routes/tutorRoutes.js';
 
-// Middleware para processar JSON no corpo das requisições
 app.use(express.json());
 
-// Integração das rotas com seus respectivos caminhos
 app.use('/admin', adminRoutes);
 app.use('/adocao', adocaoRoutes);
 app.use('/animais', animalRoutes);
@@ -26,14 +24,12 @@ app.use('/doacao', doacaoRoutes);
 app.use('/questionario', questionarioRoutes);
 app.use('/tutor', tutorRoutes);
 
-// Middleware para capturar rotas não encontradas (404)
 app.use((req, res, next) => {
     res.status(404).json({ erro: "Rota não encontrada." });
 });
 
-// Middleware de tratamento de erro geral (Captura erros 500)
 app.use((err, req, res, next) => {
-    console.error(err.stack); // Log do erro para depuração
+    console.error(err.stack); 
     res.status(500).json({ erro: "Erro interno do servidor." });
 });
 

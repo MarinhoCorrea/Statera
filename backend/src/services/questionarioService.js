@@ -19,7 +19,6 @@ const camposObrigatorios = [
 
 export const PostQuestionarioService = async (tutorId, dadosQuestionario) => {
 
-    // Compara cada campo (cada string em camposObrigatorios) com cada campo (cada string no req.body), além de valida-los
     for (const campo of camposObrigatorios) {
         if (!(campo in dadosQuestionario) || dadosQuestionario[campo] === null || dadosQuestionario[campo] === '') {
             const error = new Error("Todos os campos obrigatórios devem ser preenchidos corretamente.");
@@ -37,8 +36,8 @@ export const PostQuestionarioService = async (tutorId, dadosQuestionario) => {
     }
 
     const novoQuestionario = await Questionario.create({
-        ...dadosQuestionario, // Funcao Spread 
-        tutorId: tutorId // Adiciona uma chave estrangeira no banco de dados que linka o tutor, verificar se pode
+        ...dadosQuestionario, 
+        tutorId: tutorId 
     });
 
     return novoQuestionario.toJSON();

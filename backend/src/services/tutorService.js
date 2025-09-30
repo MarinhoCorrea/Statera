@@ -1,16 +1,14 @@
 import { Tutor } from '../models/Modelos.js';
 import bcrypt from 'bcryptjs';
 
-// Post Tutores
 export const PostTutorService = async (dadosTutor) => {
-  // validação básica
+
   if (!dadosTutor.nome_completo || !dadosTutor.email || !dadosTutor.senha || !dadosTutor.cidade || !dadosTutor.estado || !dadosTutor.idade || !dadosTutor.telefone) {
     const error = new Error("Todos os campos obrigatórios devem ser preenchidos corretamente.");
     error.name = "DadosIncompletosError";
     throw error;
   }
 
-  // verifica se o email já existe
   const tutorExistente = await Tutor.findOne({ where: { email: dadosTutor.email } });
   if (tutorExistente) {
     const error = new Error("Email preenchido já está sendo utilizado.");
@@ -18,11 +16,9 @@ export const PostTutorService = async (dadosTutor) => {
     throw error;
   }
 
-  // criptografa a senha corretamente
   const SALT_ROUNDS = parseInt(process.env.SALT_ROUNDS) || 10;
-  const senhaCriptografada = await bcrypt.hash(dadosTutor.senha, SALT_ROUNDS); // 10 = saltRounds
+  const senhaCriptografada = await bcrypt.hash(dadosTutor.senha, SALT_ROUNDS); 
 
-  // cria o tutor
   const novoTutor = await Tutor.create({
     nome_completo: dadosTutor.nome_completo,
     senha: senhaCriptografada,
@@ -104,7 +100,7 @@ export const PatchTutorService = async (tutorIdUrl, dadosTutor, dadosQuestionari
       questionarioAtualizado = await questionarioExistente.update(dadosQuestionario);
     } else {
       questionarioAtualizado = await Questionario.create({
-        ...dadosQuestionario, // Spread
+        ...dadosQuestionario, 
         tutorId: tutorIdUrl 
       });
     }

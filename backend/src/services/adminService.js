@@ -21,7 +21,6 @@ export const GetAnimaisAdminService = async (filtros) => {
         whereClause.adotado = filtros.adotado === 'true';
     }
 
-    // Incluir Pedidos de Adoção relacionados, se necessário
     includeClause.push({
         model: PedidoAdocao,
         required: false,

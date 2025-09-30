@@ -2,8 +2,6 @@ import { Tutor } from '../models/Modelos.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
-
-// Post Login
 export const SignInService = async (email, senha) => {
     const tutor = await Tutor.findOne({ where: { email } });
 

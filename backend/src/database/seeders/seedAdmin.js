@@ -50,5 +50,4 @@ const createAdminSeed = async () => {
     }
 };
 
-// Executa a função
 createAdminSeed();
