@@ -1,9 +1,5 @@
 import { Tutor } from '../models/Modelos.js';
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
-
-
 
 // Post Tutores
 export const PostTutorService = async (dadosTutor) => {
@@ -23,7 +19,8 @@ export const PostTutorService = async (dadosTutor) => {
   }
 
   // criptografa a senha corretamente
-  const senhaCriptografada = await bcrypt.hash(dadosTutor.senha, 10); // 10 = saltRounds
+  const SALT_ROUNDS = parseInt(process.env.SALT_ROUNDS) || 10;
+  const senhaCriptografada = await bcrypt.hash(dadosTutor.senha, SALT_ROUNDS); // 10 = saltRounds
 
   // cria o tutor
   const novoTutor = await Tutor.create({

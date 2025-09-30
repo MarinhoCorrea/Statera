@@ -24,7 +24,8 @@ const createAdminSeed = async () => {
             return;
         }
 
-        const senhaCriptografada = await bcrypt.hash(SEED_SENHA, 10);
+        const SALT_ROUNDS = parseInt(process.env.SALT_ROUNDS) || 10;
+        const senhaCriptografada = await bcrypt.hash(SEED_SENHA, SALT_ROUNDS);
 
 
         const SEED_ID = uuidv4();

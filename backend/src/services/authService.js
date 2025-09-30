@@ -1,7 +1,7 @@
 import { Tutor } from '../models/Modelos.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
+
 
 // Post Login
 export const SignInService = async (email, senha) => {

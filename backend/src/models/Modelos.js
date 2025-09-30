@@ -7,7 +7,7 @@ import DoacaoModel from './Doacao.js';
 
 export const sequelize = new Sequelize({
     dialect: 'sqlite',
-    storage: './database.sqlite',
+    storage: process.env.DB_STORAGE || './database.sqlite',
 });
 
 export const Animal = AnimalModel(sequelize);
