@@ -8,14 +8,18 @@ import dotenv from 'dotenv';
 // Post Tutores
 export const PostTutorService = async (dadosTutor) => {
   // validação básica
-  if (!dadosTutor.nome_completo || !dadosTutor.email || !dadosTutor.senha) {
-    console.error("Todos os campos obrigatórios devem ser preenchidos corretamente.");
+  if (!dadosTutor.nome_completo || !dadosTutor.email || !dadosTutor.senha || !dadosTutor.cidade || !dadosTutor.estado || !dadosTutor.idade || !dadosTutor.telefone) {
+    const error = new Error("Todos os campos obrigatórios devem ser preenchidos corretamente.");
+    error.name = "DadosIncompletosError";
+    throw error;
   }
 
   // verifica se o email já existe
   const tutorExistente = await Tutor.findOne({ where: { email: dadosTutor.email } });
   if (tutorExistente) {
-    console.error("O email preenchido já está sendo utilizado.");
+    const error = new Error("Email preenchido já está sendo utilizado.");
+    error.name = "EmailDuplicadoError";
+    throw error;
   }
 
   // criptografa a senha corretamente
@@ -34,32 +38,83 @@ export const PostTutorService = async (dadosTutor) => {
     facebook: dadosTutor.facebook
   });
 
-  return novoTutor;
+  const tutorRetorno = novoTutor.toJSON();
+  delete tutorRetorno.senha;
+
+  return tutorRetorno;
 };
 
-// Post Login
-export const SignInService = async (email, senha)  => {
-  const tutor = await Tutor.findOne({ where: { email } });
+export const GetTutorByIdService = async (tutorId) => {
+    
+    const tutor = await Tutor.findByPk(tutorId, {
+        include: [{ 
+            model: Questionario, 
+            required: false 
+        }],
+        attributes: { exclude: ['senha', 'administrador'] }
+    });
+
+    if (!tutor) {
+        const error = new Error("Tutor não encontrado");
+        error.name = "TutorNaoEncontradoError";
+        throw error;
+    }
+
+    const tutorJSON = tutor.toJSON();
+    
+    tutorJSON.questionario = tutorJSON.Questionario;
+    delete tutorJSON.Questionario; 
+
+    return tutorJSON;
+};
+
+export const PatchTutorService = async (tutorIdUrl, dadosTutor, dadosQuestionario) => {
+
+  const temDadosTutor = Object.keys(dadosTutor).length > 0;
+  const temDadosQuestionario = Object.keys(dadosQuestionario).length > 0;
+
+  if (!temDadosTutor && !temDadosQuestionario) {
+    const error = new Error("Pelo menos um campo deve ser enviado para atualização");
+    error.name = "DadosAusentesError";
+    throw error;
+  }
+
+  const tutor = await Tutor.findByPk(tutorIdUrl, {
+    include: [{ model: Questionario, required: false }]
+  });
 
   if (!tutor) {
-    return { status: 404, message:'Usuário não encontrado'};
+    const error = new Error("Tutor não encontrado");
+    error.name = "TutorNaoEncontradoError";
+    throw error;
   }
 
-  const valid = await bcrypt.compare(senha, tutor.senha);
+  let tutorAtualizado = tutor;
+  if (temDadosTutor) {
+    delete dadosTutor.id;
+    delete dadosTutor.administrador;
+    delete dadosTutor.senha;
 
-  if (!valid) {
-    return { status: 401, message:'Login inválido' };
+    tutorAtualizado = await tutor.update(dadosTutor);
   }
 
-  const token = jwt.sign(
-    { id: tutor.id, email: tutor.email},
-    process.env.JWT_SECRET,
-    { expiresIn: '6h' }
-  );
+  let questionarioAtualizado = null;
 
-  return {
-    status: 200,
-    token,
-    tutor
+  if (temDadosQuestionario) {
+    let questionarioExistente = tutor.Questionario;
+
+    if (questionarioExistente) {
+      questionarioAtualizado = await questionarioExistente.update(dadosQuestionario);
+    } else {
+      questionarioAtualizado = await Questionario.create({
+        ...dadosQuestionario, // Spread
+        tutorId: tutorIdUrl 
+      });
+    }
   }
-}
+
+  const resultado = tutorAtualizado.toJSON();
+  resultado.questionario = questionarioAtualizado ? questionarioAtualizado.toJSON() : tutor.Questionario ? tutor.Questionario.toJSON() : null;
+
+  return resultado;
+};
