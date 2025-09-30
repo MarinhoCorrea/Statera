@@ -1,6 +1,7 @@
 import express from 'express';
 import { GetAnimals, PostAnimal } from '../controllers/animalController.js'; 
 
+
 const router = express.Router();
 
 

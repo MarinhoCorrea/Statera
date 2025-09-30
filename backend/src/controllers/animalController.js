@@ -1,21 +1,28 @@
-import express from 'express';
-import { GetAnimalsService, CreateAnimalService, PostAnimalService } from '../services/animalService.js';
-import { Animal } from '../models/Modelos.js';
+import { GetAnimalsService, PostAnimalService } from '../services/animalService.js';
 
 export const GetAnimals = async (req, res) => {
-    try {
-        const filters = req.query;
-        const animals = await GetAnimalsService(filters);
+  try {
+    const filters = req.query;
+    const animals = await GetAnimalsService(filters);
 
-        if (animals.message) {
-            return res.status(404).json(animals);
-        }
+    return res.status(201).json({
+      data: animals,
+      total: animals.length
+    });
 
-        return res.status(200).json(animals);
-    } catch (error) {
-        console.log('Erro ao buscar animais: ', error);
-        return res.status(500).json({ error: 'Ocorreu um erro interno. Tente novamente mais tarde' });
+  } catch (error) {
+
+    if (error.name !== "NenhumAnimalDisponivelError" && error.name !== "FiltroVazioError") {
+      console.error('Erro inesperado ao buscar animais: ', error);
     }
+
+    if (error.name === "NenhumAnimalDisponivelError" || error.name === "FiltroVazioError") {
+      return res.status(201).json({ data: [], total: 0, message: error.message });
+    }
+
+    return res.status(500).json({ erro: "Erro ao buscar animais" });
+
+  }
 }
 
 export const PostAnimal = async (req, res) => {
@@ -23,10 +30,14 @@ export const PostAnimal = async (req, res) => {
     const novoAnimal = await PostAnimalService(req.body);
 
     return res.status(201).json(novoAnimal);
+
   } catch (error) {
-    if (error.message.includes("campos obrigatórios")) {
+    console.error('Erro ao cadastrar animal:', error);
+
+    if (error.name === "DadosIncompletosError") {
       return res.status(400).json({ erro: error.message });
     }
-    return res.status(500).json({ erro:'Ocorreu um erro interno. Tente novamente mais tarde' });
+
+    return res.status(500).json({ erro: 'Erro interno ao cadastrar o animal.' });
   }
 }

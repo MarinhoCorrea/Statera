@@ -1,9 +1,16 @@
 import express from 'express';
+import { GetAnimaisAdmin, GetAnimalByIdAdmin, PatchAnimalAdmin, DeleteAnimalAdmin } from '../controllers/adminController.js';
+import verifyToken from '../middlewares/verifyToken.js';
+import isAdmin from '../middlewares/isAdminMiddleware.js';
+
 const router = express.Router();
 
-// Exemplo de rota só pra testar
-router.get('/', (req, res) => {
-  res.send('Admin routes funcionando!');
-});
+router.use(verifyToken, isAdmin);
+
+router.get('/animais', GetAnimaisAdmin);
+router.patch('/animais/:id', PatchAnimalAdmin);
+router.get('/:id', GetAnimalByIdAdmin);
+router.delete('/animais/:id', DeleteAnimalAdmin);
+
 
 export default router;

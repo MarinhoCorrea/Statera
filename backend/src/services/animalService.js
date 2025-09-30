@@ -3,13 +3,16 @@ import { Animal } from '../models/Modelos.js';
 export const GetAnimalsService = async (filtros) => {
 
     // Verifica se há animais disponíveis para adoção
+    // Má prática devio a diversas consultas no db, porém útil para nomenclatura e diferenciação dos erros
     const avaliableAnimals = await Animal.count({
         where: {
             adotado: false
         }
     });
     if (avaliableAnimals === 0) {
-        return { message: "Não há nenhum animal disponível para adoção no momento" }
+        const error = new Error("Não há nenhum animal disponível para adoção no momento");
+        error.name = "NenhumAnimalDisponivelError";
+        throw error;
     }
 
     // Declara variável responsável pelos filtros (Já é filtrado em relação à adoção)
@@ -40,7 +43,9 @@ export const GetAnimalsService = async (filtros) => {
 
     // Retorna em caso de não ter aniamis disponíveis com os filtros
     if (filteredAvaliableAnimals.length === 0) {
-        console.error('Nenhum animal disponível para adoção foi encontrado com os filtros selecionados.');
+        const error = new Error('Nenhum animal disponível para adoção foi encontrado com os filtros selecionados.');
+        error.name = "FiltroVazioError";
+        throw error;
     }
 
     // Sucesso
@@ -49,25 +54,23 @@ export const GetAnimalsService = async (filtros) => {
 
 //Revisar essa parte
 export const PostAnimalService = async (dadosAnimal) => {
-  try {
-    // Validação básica – pode ser refinada conforme regras de negócio
-    if (!dadosAnimal.nome || !dadosAnimal.especie || !dadosAnimal.porte) {
-      console.error("Todos os campos obrigatórios devem ser preenchidos corretamente.");
+
+    if (!dadosAnimal.nome || !dadosAnimal.especie || !dadosAnimal.porte || !dadosAnimal.descricao) {
+        const error = new Error("Todos os campos obrigatórios devem ser preenchidos corretamente.");
+        error.name = "DadosIncompletosError"; 
+        throw error; 
     }
 
     const novoAnimal = await Animal.create({
-      nome: dadosAnimal.nome,
-      especie: dadosAnimal.especie,
-      porte: dadosAnimal.porte,
-      castrado: dadosAnimal.castrado ?? false,
-      vacinado: dadosAnimal.vacinado ?? false,
-      descricao: dadosAnimal.descricao,
-      foto: dadosAnimal.foto, // armazenado como buffer
-      adotado: false // sempre falso no cadastro
+        nome: dadosAnimal.nome,
+        especie: dadosAnimal.especie,
+        porte: dadosAnimal.porte,
+        castrado: dadosAnimal.castrado ?? false,
+        vacinado: dadosAnimal.vacinado ?? false,
+        descricao: dadosAnimal.descricao,
+        foto: dadosAnimal.foto, 
+        adotado: false 
     });
 
-    return novoAnimal;
-  } catch (error) {
-    console.error("Erro ao cadastrar o animal: " + error.message);
-  }
+    return novoAnimal.toJSON();
 };
