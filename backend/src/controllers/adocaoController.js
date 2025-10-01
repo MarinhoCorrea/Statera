@@ -10,7 +10,10 @@ export const PostAdocao = async (req, res) => {
     }
 
     try {
-        const novoPedido = await PostAdocaoService(tutorId, animal_id);
+        const novoPedido = await PostAdocaoService({
+            tutorId, 
+            animalId: animal_id
+        });
         
         return res.status(201).json(novoPedido); 
         

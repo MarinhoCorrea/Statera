@@ -42,7 +42,7 @@ export const GetAnimaisAdminService = async (filtros) => {
 export const PatchAnimalAdminService = async (animalId, dadosAtualizacao) => {
 
 
-    if (camposValidos.length === 0) {
+    if (Object.keys(dadosAtualizacao).length === 0) {
         const error = new Error("Nenhum campo foi fornecido para atualização");
         error.name = "DadosAusentesError";
         throw error;
@@ -66,7 +66,6 @@ export const GetAnimalByIdAdminService = async (animalId) => {
     const animal = await Animal.findByPk(animalId, {
         include: [{
             model: PedidoAdocao,
-            as: 'pedidos', 
             order: [['createdAt', 'ASC']],
             attributes: ['id', 'status', 'posicao_fila', 'tutorId', 'createdAt'] 
         }],

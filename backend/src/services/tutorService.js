@@ -1,4 +1,4 @@
-import { Tutor } from '../models/Modelos.js';
+import { Tutor, Questionario } from '../models/Modelos.js';
 import bcrypt from 'bcryptjs';
 
 export const PostTutorService = async (dadosTutor) => {
@@ -17,7 +17,7 @@ export const PostTutorService = async (dadosTutor) => {
   }
 
   const SALT_ROUNDS = parseInt(process.env.SALT_ROUNDS) || 10;
-  const senhaCriptografada = await bcrypt.hash(dadosTutor.senha, SALT_ROUNDS); 
+  const senhaCriptografada = await bcrypt.hash(dadosTutor.senha, SALT_ROUNDS);
 
   const novoTutor = await Tutor.create({
     nome_completo: dadosTutor.nome_completo,
@@ -38,27 +38,27 @@ export const PostTutorService = async (dadosTutor) => {
 };
 
 export const GetTutorByIdService = async (tutorId) => {
-    
-    const tutor = await Tutor.findByPk(tutorId, {
-        include: [{ 
-            model: Questionario, 
-            required: false 
-        }],
-        attributes: { exclude: ['senha', 'administrador'] }
-    });
 
-    if (!tutor) {
-        const error = new Error("Tutor não encontrado");
-        error.name = "TutorNaoEncontradoError";
-        throw error;
-    }
+  const tutor = await Tutor.findByPk(tutorId, {
+    include: [{
+      model: Questionario,
+      required: false
+    }],
+    attributes: { exclude: ['senha', 'administrador'] }
+  });
 
-    const tutorJSON = tutor.toJSON();
-    
-    tutorJSON.questionario = tutorJSON.Questionario;
-    delete tutorJSON.Questionario; 
+  if (!tutor) {
+    const error = new Error("Tutor não encontrado");
+    error.name = "TutorNaoEncontradoError";
+    throw error;
+  }
 
-    return tutorJSON;
+  const tutorJSON = tutor.toJSON();
+
+  tutorJSON.questionario = tutorJSON.Questionario;
+  delete tutorJSON.Questionario;
+
+  return tutorJSON;
 };
 
 export const PatchTutorService = async (tutorIdUrl, dadosTutor, dadosQuestionario) => {
@@ -84,30 +84,49 @@ export const PatchTutorService = async (tutorIdUrl, dadosTutor, dadosQuestionari
 
   let tutorAtualizado = tutor;
   if (temDadosTutor) {
+
+    console.log("Tentando atualizar Tutor com os dados:", dadosTutor); 
+
     delete dadosTutor.id;
     delete dadosTutor.administrador;
     delete dadosTutor.senha;
 
-    tutorAtualizado = await tutor.update(dadosTutor);
+    tutorAtualizado = await tutor.update(dadosTutor, { fields: Object.keys(dadosTutor) });
+
   }
 
+  
   let questionarioAtualizado = null;
 
   if (temDadosQuestionario) {
-    let questionarioExistente = tutor.Questionario;
+        let questionarioExistente = tutor.Questionario; 
 
-    if (questionarioExistente) {
-      questionarioAtualizado = await questionarioExistente.update(dadosQuestionario);
-    } else {
-      questionarioAtualizado = await Questionario.create({
-        ...dadosQuestionario, 
-        tutorId: tutorIdUrl 
-      });
+        if (questionarioExistente) {
+            console.log("Tentando atualizar Questionário com os dados:", dadosQuestionario);
+            questionarioAtualizado = await questionarioExistente.update(dadosQuestionario);
+        } else {
+            console.log("Tentando CRIAR Questionário com os dados:", dadosQuestionario);
+            questionarioAtualizado = await Questionario.create({
+                ...dadosQuestionario, 
+                tutorId: tutorIdUrl 
+            });
+        }
     }
-  }
 
   const resultado = tutorAtualizado.toJSON();
-  resultado.questionario = questionarioAtualizado ? questionarioAtualizado.toJSON() : tutor.Questionario ? tutor.Questionario.toJSON() : null;
+
+  delete resultado.senha;
+  delete resultado.administrador;
+
+  if (questionarioAtualizado) {
+    resultado.questionario = questionarioAtualizado.toJSON();
+  } else if (tutorAtualizado.Questionario) {
+    resultado.questionario = tutorAtualizado.Questionario.toJSON();
+  } else {
+    resultado.questionario = null;
+  }
+
+  delete resultado.Questionario;
 
   return resultado;
 };

@@ -4,6 +4,10 @@ import jwt from 'jsonwebtoken';
 const verifyToken = (req, res, next) => {
     const tokenBearer = req.headers['authorization'];
 
+    if (!tokenBearer || !tokenBearer.startsWith('Bearer ')) {
+        return res.status(401).json({ message: 'Token não fornecido ou formato inválido.' });
+    }
+
     const token = tokenBearer.split(' ')[1];
 
     if (!token) return res.status(401).json({ message: 'Token não fornecido' });

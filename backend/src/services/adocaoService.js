@@ -2,12 +2,17 @@ import { PedidoAdocao, Tutor, Animal, Questionario } from '../models/Modelos.js'
 
 export const PostAdocaoService = async ({ tutorId, animalId }) => {
 
+    console.log("-----------------------------------------");
+    console.log("ID do Tutor recebido:", tutorId); // ID do Token
+    console.log("ID do Animal recebido:", animalId);
+    console.log("-----------------------------------------");
+
     const [tutor, animal] = await Promise.all([
         Tutor.findByPk(tutorId),
         Animal.findByPk(animalId),
     ]);
 
-    if (!tutor | !animal) {
+    if (!tutor || !animal) {
         const error = new Error("Tutor ou animal não encontrado");
         error.name = "NaoEncontradoError";
         throw error;
@@ -15,7 +20,7 @@ export const PostAdocaoService = async ({ tutorId, animalId }) => {
 
     const questionario = await Questionario.findOne({ where: { tutorId: tutorId } });
 
-    if (!questionario) { 
+    if (!questionario) {
         const error = new Error("O tutor ainda não respondeu o questionário obrigatório");
         error.name = "QuestionarioAusenteError";
         throw error;
