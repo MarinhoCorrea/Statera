@@ -14,9 +14,7 @@
 
 ## 📌 **Sobre o Projeto**
 
-O mundo é composto por pessoas distintas que se comunicam e interagem com as informações de maneiras diversas, seja por preferência ou necessidade. O acesso ao conhecimento e a oportunidades é um direito de todos, mas nem sempre as informações são transmitidas de maneira acessível.
-
-A **Statera** teve uma iniciativa que conecta animais necessitados com tutores responsáveis, garantindo que cada animal, independentemente de sua história, possa encontrar um lar seguro e amoroso.
+A **Statera** teve uma iniciativa que conecta animais necessitados com tutores responsáveis, garantindo que cada animal possa encontrar um lar seguro e amoroso.
 
 Nosso objetivo é eliminar as barreiras para a adoção, tornando o processo mais transparente, seguro e acessível. Usamos tecnologia para gerenciar o cadastro de animais e tutores, otimizar os processos de adoção e garantir que os pets encontrem as melhores famílias.
 
@@ -24,9 +22,7 @@ Nosso objetivo é eliminar as barreiras para a adoção, tornando o processo mai
 
 ## 📂 **Estrutura do Projeto**
 
-📁 backend/ → Código do servidor e lógica da aplicação
 
-📁 docs/ → Documentação e guias de uso
 
 ---
 
@@ -100,18 +96,48 @@ cd Statera
 
 ---
 
-## 💠 **Tecnologias utilizadas**
+## 📦 **Dependências**
 
-🔹 **Node.js + Express.js** → utilizamos **Node.js** pela sua leveza e capacidade de lidar com operações assíncronas de forma eficiente. **Express.js** foi escolhido para estruturar as rotas REST de maneira simples e modular, acelerando o desenvolvimento da API.
+***Este projeto utiliza várias dependências para fornecer funcionalidades como autenticação, manipulação de banco de dados, geração de QR codes e muito mais. Abaixo está uma descrição de cada uma das bibliotecas utilizadas.***
 
-🔹 **Sequelize** → optamos pelo **Sequelize** como ORM para mapear nossos modelos de dados e facilitar a comunicação com o banco relacional. Ele gerencia migrations, define validações de campos e mantém automaticamente os campos createdAt e updatedAt em todas as tabelas.
+**🔐 bcryptjs**
 
-🔹 **SQLite** → empregamos SQLite como banco de dados relacional embarcado, garantindo portabilidade e rapidez sem necessidade de servidor externo. Também é possível substituir por outro banco compatível com Sequelize sem alterar a estrutura do projeto.
-
-[My Skills](https://skillicons.dev/icons?i=nodejs,npm,sqlite,sequelize&theme=light)
+ Utilizado para criptografar senhas de forma segura. É uma implementação pura em JavaScript da biblioteca bcrypt, ideal para autenticação de usuários.
 
 
-[Acessibilidade](https://img.shields.io/badge/A11Y-ready-green)
+**🌱 dotenv**
+
+ Carrega variáveis de ambiente de um arquivo .env para o process.env, permitindo uma separação clara entre código e configuração sensível (como senhas e tokens).
+
+
+**🌐 express**
+
+ Framework web minimalista e rápido para Node.js. Utilizado para criar rotas, middlewares e estruturar a API de forma organizada.
+
+
+**🔑 jsonwebtoken**
+
+ Permite gerar e validar tokens JWT (JSON Web Tokens), comumente usados para autenticação de usuários em APIs seguras.
+
+
+**🚀 nodemon (Dev Dependency)**
+
+ Ferramenta de desenvolvimento que reinicia automaticamente a aplicação sempre que arquivos são alterados, facilitando testes e iteração durante o desenvolvimento.
+
+
+**📷 qrcode** 
+
+ Gera códigos QR diretamente a partir de strings. Útil para criar sistemas de autenticação, links rápidos, validação de entradas etc.
+
+
+**🧩 sequelize** 
+
+ ORM (Object Relational Mapper) para Node.js. Permite interagir com bancos de dados relacionais como se estivesse manipulando objetos JavaScript. Este projeto usa com sqlite3.
+
+
+**🗃️ sqlite3** 
+
+ Banco de dados leve e rápido baseado em arquivos. Ideal para aplicações menores, testes ou quando não se deseja depender de servidores de banco externos.
 
 ---
 
