@@ -3,10 +3,10 @@ import bcrypt from 'bcryptjs';
 import dotenv from 'dotenv';
 import { v4 as uuidv4 } from 'uuid';
 
-dotenv.config({ path: '../../.env' });
+dotenv.config({ path: '../../.env' }); 
 
 
-const SEED_EMAIL = "admin@adocao.com";
+const SEED_EMAIL = "admin@adocao.com"; 
 
 const SEED_SENHA = process.env.ADMIN_SENHA || "mudar_essa_senha_padrao_no_env";
 

@@ -14,11 +14,13 @@ const projectRoot = path.resolve(__dirname, '..', '..');
 
 const dbPath = path.resolve(projectRoot, process.env.DB_STORAGE || './database.sqlite');
 
+// Criando o banco de dados
 export const sequelize = new Sequelize({
     dialect: 'sqlite',
     storage: dbPath, 
 });
 
+// Cria as tabelas com base nos models
 export const Animal = AnimalModel(sequelize);
 export const Tutor = TutorModel(sequelize);
 export const Questionario = QuestionarioModel(sequelize);

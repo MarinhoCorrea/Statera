@@ -32,6 +32,9 @@ export const PostTutorService = async (dadosTutor) => {
   });
 
   const tutorRetorno = novoTutor.toJSON();
+  delete tutorRetorno.administrador;
+  delete tutorRetorno.createdAt;
+  delete tutorRetorno.updatedAt
   delete tutorRetorno.senha;
 
   return tutorRetorno;

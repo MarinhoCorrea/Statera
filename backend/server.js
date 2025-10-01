@@ -1,11 +1,12 @@
 import dotenv from 'dotenv';
-dotenv.config();
+dotenv.config(); // Pegar as variaveís do .env
 
-import { initDatabase } from './src/database/init.js';
+import { initDatabase } from './src/database/init.js'; 
 import express from 'express';
 
 const app = express();
 
+// Importação das rotas
 import adminRoutes from './src/routes/adminRoutes.js'
 import adocaoRoutes from './src/routes/adocaoRoutes.js';
 import animalRoutes from './src/routes/animalRoutes.js';
@@ -35,13 +36,13 @@ app.use((err, req, res, next) => {
 
 const startServer = async () => {
 
-    // 🛑 AGUARDE A CONEXÃO E SINCRONIZAÇÃO
+    // Incializa o banco de dados
     await initDatabase();
 
     const PORT = process.env.PORT || 5000;
 
     app.listen(PORT, () => {
-        console.log(`✅ Servidor rodando na porta ${PORT}`);
+        console.log(`Servidor rodando na porta ${PORT}`);
     });
 };
 
