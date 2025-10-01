@@ -16,9 +16,14 @@ const dbPath = path.resolve(projectRoot, process.env.DB_STORAGE || './database.s
 
 // Criando o banco de dados
 export const sequelize = new Sequelize({
-    dialect: 'sqlite',
-    storage: dbPath, 
-});
+    username: 'postgres',
+    password: 'BVRlXXB4E7LE[@4',
+    database: 'postgres',
+    host: 'db.thmirefcaiqioxbvayic.supabase.co',
+    port: 5432,
+    dialect: 'postgres',
+    logging: false
+})
 
 // Cria as tabelas com base nos models
 export const Animal = AnimalModel(sequelize);
