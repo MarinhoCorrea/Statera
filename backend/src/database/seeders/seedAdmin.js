@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs';
 import dotenv from 'dotenv';
 import { v4 as uuidv4 } from 'uuid';
 
-dotenv.config();
+dotenv.config({ path: '../../.env' });
 
 
 const SEED_EMAIL = "admin@adocao.com";
