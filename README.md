@@ -20,61 +20,113 @@ Nosso objetivo é eliminar as barreiras para a adoção, tornando o processo mai
 
 ---
 
-## 📂 **Estrutura do Projeto**
-📦 Statera/
-│
-├── 📁 src/                      
-│   ├── 📁 models/               
-│   │   ├── Animal.js
-│   │   ├── Doacao.js
-│   │   ├── Modelos.js
-│   │   ├── PedidoAdocao.js
-│   │   ├── Questionario.js
-│   │   └── Usuario.js
-│   │
-│   ├── 📁 controllers/          
-│   │   ├── adminController.js
-│   │   ├── adocaoController.js
-│   │   ├── animalController.js
-│   │   ├── authController.js
-│   │   ├── doacaoController.js
-│   │   ├── questionarioController.js
-│   │   └── tutorController.js
-│   │
-│   ├── 📁 services/            
-│   │   ├── adminService.js
-│   │   ├── adocaoService.js
-│   │   ├── animalService.js
-│   │   ├── authService.js
-│   │   ├── doacaoService.js
-│   │   ├── questionarioService.js
-│   │   └── tutorService.js
-│   │
-│   ├── 📁 routes/               
-│   │   ├── adminRoutes.js
-│   │   ├── adocaoRoutes.js
-│   │   ├── animalRoutes.js
-│   │   ├── authRoutes.js
-│   │   ├── doacaoRoutes.js
-│   │   ├── questionarioRoutes.js
-│   │   └── tutorRoutes.js
-│   │
-│   │
-│   ├── 📁 database/             
-│   │   ├── init.js
-│   │   └── seeders/
-│   │
-│   └── 📁 middlewares/          
-│       ├── isAdmin.js
-│       └── verifytoken.js
-│
-│
-├── .env                        
-├── .gitignore                  
-├── package.json    
-├── Swagger.json  
-├── server.js
-└── README.md                    
+## 📦 **Estrutura do Projeto**
+    📂 Statera/
+     │
+     
+     ├──📁 src/
+     
+     │   ├──📁 models/
+     
+     │   │   ├── Animal.js
+     
+     │   │   ├── Doacao.js
+     
+     │   │   ├── Modelos.js
+     
+     │   │   ├── PedidoAdocao.js
+     
+     │   │   ├── Questionario.js
+     
+     │   │   └── Usuario.js
+     
+     │   │
+     
+     │   ├──📁 controllers/
+     
+     │   │   ├── adminController.js
+     
+     │   │   ├── adocaoController.js
+     
+     │   │   ├── animalController.js
+     
+     │   │   ├── authController.js
+     
+     │   │   ├── doacaoController.js
+     
+     │   │   ├── questionarioController.js
+     
+     │   │   └── tutorController.js
+     
+     │   │
+     
+     │   ├──📁 services/
+     
+     │   │   ├── adminService.js
+     
+     │   │   ├── adocaoService.js
+     
+     │   │   ├── animalService.js
+     
+     │   │   ├── authService.js
+     
+     │   │   ├── doacaoService.js
+     
+     │   │   ├── questionarioService.js
+     
+     │   │   └── tutorService.js
+     
+     │   │
+     
+     │   ├──📁 routes/
+     
+     │   │   ├── adminRoutes.js
+     
+     │   │   ├── adocaoRoutes.js
+     
+     │   │   ├── animalRoutes.js
+     
+     │   │   ├── authRoutes.js
+     
+     │   │   ├── doacaoRoutes.js
+     
+     │   │   ├── questionarioRoutes.js
+     
+     │   │   └── tutorRoutes.js
+     
+     │   │
+     
+     │   │
+     
+     │   ├──📁 database/
+     
+     │   │   ├── init.js
+     
+     │   │   └── seeders/
+     
+     │   │
+     
+     │   ├──📁 middlewares/
+     
+     │   ├── isAdmin.js
+     
+     │   └── verifytoken.js
+     
+     │
+     
+     │
+     
+     ├── .env
+     
+     ├── .gitignore
+     
+     ├── package.json
+     
+     ├── Swagger.json
+     
+     ├── server.js
+     
+     └── README.md             
 
 
 
