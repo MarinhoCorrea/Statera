@@ -163,13 +163,15 @@ cd Statera
 
 ## 💠 **Funcionalidades**
 
- 🔹 Gestão de Animais: Cadastro, visualização, atualização e remoção de animais disponíveis para adoção, com campos detalhados como espécie, porte, status de castração e vacinação.
+ 🔹 Autenticação: Para fazer login no sistema é feita uma verificação que ao aprovada libera o token para acessar as rotas protegidas . 
+ 
+ 🔹 Gestão de Animais: Cadastro, visualização e atualização, com campos detalhados como espécie, porte, status de castração e vacinação.
 
  🔹 Gestão de Tutores: Registro de novos usuários com dados pessoais, incluindo um questionário detalhado para avaliar o perfil do potencial adotante. Isso garante que os animais sejam encaminhados para lares compatíveis e responsáveis.
 
  🔹 Processo de Adoção: Criação de pedidos de adoção que são organizados em uma fila de análise. O sistema assegura que apenas tutores com o questionário preenchido possam solicitar a adoção, mantendo a integridade do processo.
 
- 🔹 Área Administrativa: Endpoints exclusivos para administradores, que permitem a visualização de todos os animais (mesmo os adotados), a atualização de seus status e a remoção de perfis. Isso garante controle e segurança sobre as informações da plataforma.
+ 🔹 Área Administrativa: Endpoints exclusivos para administradores, que permitem a visualização de todos os animais (mesmo os adotados) ou a visualização de um somente, a atualização de seus status e a remoção de perfis. Isso garante controle e segurança sobre as informações da plataforma.
 
  🔹 Apoio Financeiro: Um endpoint dedicado para registro de doações, que gera um link e um QR Code Pix para facilitar o apoio à ONG.
 
@@ -187,18 +189,18 @@ cd Statera
 | Método | Rota | Descrição |
 | --- | --- | --- |
 | GET | /animais |  Lista os animais disponíveis para adoção com suporte a filtros |
-| GET | /tutores/:id | Retorna os dados e o questionário preenchido do tutor. |
-| GET | /admin/animais | Permite ao administrador visualizar todos os animais com filtros avançados  |
-| GET | /animais/:id | Busca um animal por seu id e retorna todas as informações do animal com lista de pedidos (interessados) |
-| POST | /animais | Cadastra um novo animal disponível para adoção |
-| POST | /tutores |  Cadastra um novo usuario com seus dados |
-| POST | /questionário | Cadastra o questionário que o tutor precisa responder para adotar |
-| POST | /adocoes | Cria um novo pedido de adoção |
-| POST | /login | Realizar a validação do email e senha registrados pelo usuário |
-| POST | /doacoes | Registra uma doação recebida com nome, valor e data. |
-| PATCH | /tutores/:id | Permite ao tutor atualizar seus dados e/ou completar o questionário obrigatório |
-| PATCH | /admin/animais/:id | Atualiza status do animal ( vacinado/castrado/etc |
-| DELETE | /admin/animais/:id | Remove um animal da base de dado |
+| GET | /tutores/:id | Busca os dados de um tutor pelo ID, incluindo o questionário se existir. |
+| GET | /admin/animais | Retorna a lista completa de animais, incluindo os já adotados, com opções de filtros.  |
+| GET | /admin/animais/:id | Busca os detalhes completos de um animal, incluindo informações sobre os pedidos de adoção. |
+| POST | /autenticacao | Realiza o login de Tutor/Administrador |
+| POST | /animais | Cadastra um novo animal no sistema. |
+| POST | /tutores |  Cria uma nova conta de usuário/tutor no sistema |
+| POST | /questionário | Envia o questionário de adoção, que é pré-requisito para fazer um pedido. |
+| POST | /adocoes | Cria um pedido de adoção para um animal |
+| POST | /doacao | Registra uma doação e simula a geração de um QR Code/Link Pix |
+| PATCH | /tutores/:id | Permite atualizar dados do tutor e/ou preencher/atualizar o questionário de adoção simultaneamente. |
+| PATCH | /admin/animais/:id | Atualiza o status de um animal |
+| DELETE | /admin/animais/:id | Remove um animal da base de dados  |
 
 ---
 
