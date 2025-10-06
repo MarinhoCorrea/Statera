@@ -8,19 +8,19 @@
 - [⚙️ Como Instalar e Rodar](#como-instalar-e-rodar)
 - [💠 Funcionalidades](#funcionalidades)
 - [📄 Documentação da API](#documentacao-da-api)
-- [Endpoints Principais](#endpoints-principais)
+- [📍 Endpoints Principais](#endpoints-principais)
 - [📦 Dependências](#dependencias)
 - [👥 Autores do Projeto](#autores-do-projeto)
 
+---
+
+
 ## 📌 **Sobre o Projeto**
+
 
 A **Statera** é uma API que tem por objetivo ser  utilizada por abrigos de adoção para facilitar os processos decorrentes de uma adoção.
 
-
-.
-
 ---
-
 ## 📦 **Estrutura do Projeto**
     📂 Statera/
      │
@@ -138,14 +138,14 @@ A **Statera** é uma API que tem por objetivo ser  utilizada por abrigos de ado�
 ### **Clone o repositório:**
 
 ```bash
-git clone <https://github.com//MarinhoCorrea/Statera.git>
+git clone https://github.com//MarinhoCorrea/Statera.git
 cd Statera
 
 ```
 
 ### **Backend**
 
-1️⃣ **Criar um arquivo `.env`** baseado no `exemplo.env`.
+1️⃣ **Criar um arquivo `.env`** 
 
 2️⃣ **Instalar dependências**:
 
@@ -177,9 +177,8 @@ cd Statera
 
 ## 📄 **Documentação da API**
 
-📌 A API segue o padrão REST e está documentada no Swagger.
 
-✅ Acesse a documentação Swagger: 🔗 [Clique Aqui](https://www.notion.so/backend/swagger.json)
+📌 A API segue o padrão REST e está documentada no Swagger.
 
 ---
 
@@ -209,10 +208,9 @@ cd Statera
 
 **🔐 bcryptjs**
 
- Utilizado para criptografar senhas de forma segura. É uma implementação pura em JavaScript da biblioteca bcrypt, ideal para autenticação de usuários.
+ Biblioteca utilizada para criptografar e hashear senhas de forma segura.
 
-
-**🌱 dotenv**
+**⚙️ dotenv**
 
  Carrega variáveis de ambiente de um arquivo .env para o process.env, permitindo uma separação clara entre código e configuração sensível (como senhas e tokens).
 
@@ -224,27 +222,41 @@ cd Statera
 
 **🔑 jsonwebtoken**
 
- Permite gerar e validar tokens JWT (JSON Web Tokens), comumente usados para autenticação de usuários em APIs seguras.
+ Implementa **JSON Web Tokens (JWT)**, essencial para a autenticação e autorização dos usuários, permitindo acesso seguro às rotas protegidas.
 
 
-**🚀 nodemon (Dev Dependency)**
+**🔄 nodemon (Dev Dependency)**
 
- Ferramenta de desenvolvimento que reinicia automaticamente a aplicação sempre que arquivos são alterados, facilitando testes e iteração durante o desenvolvimento.
+ Ferramenta de desenvolvimento que reinicia o servidor automaticamente ao detectar alterações nos arquivos.
 
 
 **📷 qrcode** 
 
- Gera códigos QR diretamente a partir de strings. Útil para criar sistemas de autenticação, links rápidos, validação de entradas etc.
-
+ Biblioteca para geração de códigos QR. Utilizada para criar QR codes Pix.
 
 **🧩 sequelize** 
 
- ORM (Object Relational Mapper) para Node.js. Permite interagir com bancos de dados relacionais como se estivesse manipulando objetos JavaScript. Este projeto usa com sqlite3.
-
+ ORM (Object-Relational Mapper). Usado para interagir com o banco de dados de forma orientada a objetos, facilitando as operações de CRUD.
 
 **🗃️ sqlite3** 
 
- Banco de dados leve e rápido baseado em arquivos. Ideal para aplicações menores, testes ou quando não se deseja depender de servidores de banco externos.
+ Driver do SQLite. Um banco de dados leve baseado em arquivos, para o banco de dados local.
+
+**📄 Swagger Ui Express**
+
+ Adiciona uma interface de documentação interativa (Swagger UI) à API, facilitando a visualização e teste dos endpoints.
+
+**🛣️ Path**
+ Módulo nativo do Node.js usado para lidar com caminhos de arquivos e diretórios de forma consistente entre diferentes sistemas operacionais.
+
+**🔗 Url**
+ Módulo nativo do Node.js usado para parsing (análise) e formatação de URLs, facilitando a manipulação de endereços web.
+
+**🆔 Uudi**
+Gera identificadores universais únicos (UUIDs), utilizados para criar IDs únicos e não sequenciais para animais, usuários ou outros recursos.
+
+**🐘 Pg**
+Driver do PostgreSQL. Permite que o Sequelize se conecte e gerencie dados no banco de dados PostgreSQL,para o banco de dados da nuvem.
 
 ---
 
