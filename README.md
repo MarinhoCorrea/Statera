@@ -103,6 +103,8 @@ Nosso objetivo é eliminar as barreiras para a adoção, tornando o processo mai
      │   │   ├── init.js
      
      │   │   └── seeders/
+
+     │   │   │   ├── seedAdmin.js
      
      │   │
      
@@ -115,8 +117,6 @@ Nosso objetivo é eliminar as barreiras para a adoção, tornando o processo mai
      │
      
      │
-     
-     ├── .env
      
      ├── .gitignore
      
