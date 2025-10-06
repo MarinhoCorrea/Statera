@@ -9,7 +9,7 @@ router.use(verifyToken, isAdmin);
 
 router.get('/animais', GetAnimaisAdmin);
 router.patch('/animais/:id', PatchAnimalAdmin);
-router.get('/:id', GetAnimalByIdAdmin);
+router.get('/animais/:id', GetAnimalByIdAdmin);
 router.delete('/animais/:id', DeleteAnimalAdmin);
 
 

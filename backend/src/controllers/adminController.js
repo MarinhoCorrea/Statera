@@ -10,7 +10,10 @@ export const GetAnimaisAdmin = async (req, res) => {
 
   } catch (error) {
 
-    console.error('Erro ao buscar animais (ADMIN):', error);
+    if (error.name === "RetornoVazioError") {
+      return res.status(201).json({ data: [], total: 0, message: error.message });
+    }
+
     return res.status(500).json({ erro: "Erro ao buscar animais" });
   }
 }
@@ -29,7 +32,7 @@ export const GetAnimalByIdAdmin = async (req, res) => {
       return res.status(404).json({ erro: error.message });
     }
 
-    console.error('Erro inesperado ao buscar animal por ID (ADMIN):', error);
+    console.error('Erro inesperado ao buscar animal por ID:', error);
     return res.status(500).json({ erro: "Erro ao buscar animal" });
   }
 }
@@ -46,8 +49,12 @@ export const PatchAnimalAdmin = async (req, res) => {
 
   } catch (error) {
 
-    if (error.name !== "DadosAusentesError" && error.name !== "AnimalNaoEncontradoError") {
-      console.error('Erro inesperado ao atualizar animal (ADMIN):', error);
+    if (error.name !== "DadosAusentesError" && error.name !== "AnimalNaoEncontradoError" && error.name !== "CampoProibidoError") {
+      console.error('Erro inesperado ao atualizar animal:', error);
+    }
+
+    if (error.name === "CampoProibidoError") {
+      return res.status(400).json({ erro: error.message });
     }
 
     if (error.name === "DadosAusentesError") {

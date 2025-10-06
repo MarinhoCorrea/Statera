@@ -18,10 +18,10 @@ import tutorRoutes from './src/routes/tutorRoutes.js';
 app.use(express.json());
 
 app.use('/admin', adminRoutes);
-app.use('/adocao', adocaoRoutes);
+app.use('/adocoes', adocaoRoutes);
 app.use('/animais', animalRoutes);
 app.use('/autenticacao', authRoutes);
-app.use('/doacao', doacaoRoutes);
+app.use('/doacoes', doacaoRoutes);
 app.use('/questionario', questionarioRoutes);
 app.use('/tutores', tutorRoutes);
 

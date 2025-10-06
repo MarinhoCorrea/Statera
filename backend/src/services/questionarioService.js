@@ -36,9 +36,22 @@ export const PostQuestionarioService = async (tutorId, dadosQuestionario) => {
     }
 
     const novoQuestionario = await Questionario.create({
-        ...dadosQuestionario, 
-        tutorId: tutorId 
+        empregado: dadosQuestionario.empregado,
+        quantos_animais_possui: dadosQuestionario.quantos_animais_possui,
+        motivos_para_adotar: dadosQuestionario.motivos_para_adotar,
+        quem_vai_sustentar_o_animal: dadosQuestionario.quem_vai_sustentar_o_animal,
+        numero_adultos_na_casa: dadosQuestionario.numero_adultos_na_casa,
+        numero_criancas_na_casa: dadosQuestionario.numero_criancas_na_casa,
+        idades_criancas: dadosQuestionario.idades_criancas,
+        ...dadosQuestionario,
+        tutorId: tutorId
     });
 
-    return novoQuestionario.toJSON();
+    const resultado = novoQuestionario.toJSON();
+
+    delete resultado.id;
+    delete resultado.createdAt;
+    delete resultado.updatedAt;
+
+    return resultado.toJSON();
 };

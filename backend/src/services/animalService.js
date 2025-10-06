@@ -33,9 +33,10 @@ export const GetAnimalsService = async (filtros) => {
 
     const filteredAvaliableAnimals = await Animal.findAll({
         where: whereClause,
+        attributes: { exclude: ['updatedAt'] },
         order: [['createdAt', 'ASC']]
     });
-
+    
     if (filteredAvaliableAnimals.length === 0) {
         const error = new Error('Nenhum animal disponível para adoção foi encontrado com os filtros selecionados.');
         error.name = "FiltroVazioError";
@@ -64,5 +65,11 @@ export const PostAnimalService = async (dadosAnimal) => {
         adotado: false 
     });
 
-    return novoAnimal.toJSON();
+    const retorno = novoAnimal.toJSON();
+
+    delete retorno.adotado;
+    delete retorno.createdAt;
+    delete retorno.updatedAt
+
+    return retorno;
 };

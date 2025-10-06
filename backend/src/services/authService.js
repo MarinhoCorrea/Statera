@@ -28,6 +28,9 @@ export const SignInService = async (email, senha) => {
 
     const tutorRetorno = tutor.toJSON();
     delete tutorRetorno.senha;
+    delete tutorRetorno.administrador;
+    delete tutorRetorno.createdAt;
+    delete tutorRetorno.updatedAt;
 
     return {
         token,

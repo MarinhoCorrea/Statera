@@ -45,7 +45,8 @@ export const GetTutorByIdService = async (tutorId) => {
   const tutor = await Tutor.findByPk(tutorId, {
     include: [{
       model: Questionario,
-      required: false
+      required: false,
+      attributes: { exclude: ['id', 'tutorId', 'createdAt', 'updatedAt'] }
     }],
     attributes: { exclude: ['senha', 'administrador'] }
   });
@@ -58,8 +59,32 @@ export const GetTutorByIdService = async (tutorId) => {
 
   const tutorJSON = tutor.toJSON();
 
-  tutorJSON.questionario = tutorJSON.Questionario;
+  let tutorQuestionario = tutorJSON.Questionario;
+
+  if (Array.isArray(tutorQuestionario) && tutorQuestionario.length > 0) {
+    tutorQuestionario = tutorQuestionario[0];
+  } else if (Array.isArray(tutorQuestionario) && tutorQuestionario.length === 0) {
+    tutorQuestionario = null;
+  }
+
+  if (tutorQuestionario) {
+    tutorJSON.questionario = {
+      empregado: tutorQuestionario.empregado,
+      quantos_animais_possui: tutorQuestionario.quantos_animais_possui,
+      motivos_para_adotar: tutorQuestionario.motivos_para_adotar,
+      quem_vai_sustentar_o_animal: tutorQuestionario.quem_vai_sustentar_o_animal,
+      numero_adultos_na_casa: tutorQuestionario.numero_adultos_na_casa,
+      numero_criancas_na_casa: tutorQuestionario.numero_criancas_na_casa,
+      idades_criancas: tutorQuestionario.idades_criancas,
+      ...tutorQuestionario
+    }
+  } else {
+    tutorJSON.questionario = {};
+  }
+
   delete tutorJSON.Questionario;
+  delete tutorJSON.createdAt;
+  delete tutorJSON.updatedAt;
 
   return tutorJSON;
 };
@@ -86,47 +111,68 @@ export const PatchTutorService = async (tutorIdUrl, dadosTutor, dadosQuestionari
   }
 
   let tutorAtualizado = tutor;
+
   if (temDadosTutor) {
-
-    console.log("Tentando atualizar Tutor com os dados:", dadosTutor); 
-
     delete dadosTutor.id;
     delete dadosTutor.administrador;
     delete dadosTutor.senha;
+    delete dadosTutor.createdAt;
+    delete dadosTutor.updatedAt
 
     tutorAtualizado = await tutor.update(dadosTutor, { fields: Object.keys(dadosTutor) });
-
   }
 
-  
   let questionarioAtualizado = null;
 
   if (temDadosQuestionario) {
-        let questionarioExistente = tutor.Questionario; 
+    let questionarioExistente = tutor.Questionario;
 
-        if (questionarioExistente) {
-            console.log("Tentando atualizar Questionário com os dados:", dadosQuestionario);
-            questionarioAtualizado = await questionarioExistente.update(dadosQuestionario);
-        } else {
-            console.log("Tentando CRIAR Questionário com os dados:", dadosQuestionario);
-            questionarioAtualizado = await Questionario.create({
-                ...dadosQuestionario, 
-                tutorId: tutorIdUrl 
-            });
-        }
-    }
+    if (questionarioExistente) {
+      questionarioAtualizado = await questionarioExistente.update(dadosQuestionario);
+    } else {
+      const error = new Error("Tentativa de atualizar questionário sem possuir um questionário");
+      error.name = "QuestionarioAtualizacaoSemExistirError";
+      throw error;
+    };
+  }
+
 
   const resultado = tutorAtualizado.toJSON();
 
   delete resultado.senha;
   delete resultado.administrador;
+  delete resultado.createdAt;
+  delete resultado.updatedAt;
 
   if (questionarioAtualizado) {
-    resultado.questionario = questionarioAtualizado.toJSON();
+    let questionarioJSON = questionarioAtualizado.toJSON();
+
+    delete questionarioJSON.id;
+    delete questionarioJSON.tutorId;
+    delete questionarioJSON.createdAt;
+    delete questionarioJSON.updatedAt;
+
+    resultado.questionario = {
+      empregado: questionarioJSON.empregado,
+      quantos_animais_possui: questionarioJSON.quantos_animais_possui,
+      motivos_para_adotar: questionarioJSON.motivos_para_adotar,
+      quem_vai_sustentar_o_animal: questionarioJSON.quem_vai_sustentar_o_animal,
+      numero_adultos_na_casa: questionarioJSON.numero_adultos_na_casa,
+      numero_criancas_na_casa: questionarioJSON.numero_criancas_na_casa,
+      idades_criancas: questionarioJSON.idades_criancas,
+      ...questionarioJSON
+    }
   } else if (tutorAtualizado.Questionario) {
-    resultado.questionario = tutorAtualizado.Questionario.toJSON();
+    let questionarioJSON = tutorAtualizado.Questionario.toJSON();
+    
+    delete questionarioJSON.id;
+    delete questionarioJSON.tutorId;
+    delete questionarioJSON.createdAt;
+    delete questionarioJSON.updatedAt;
+
+    resultado.questionario = questionarioJSON;
   } else {
-    resultado.questionario = null;
+    resultado.questionario = {};
   }
 
   delete resultado.Questionario;

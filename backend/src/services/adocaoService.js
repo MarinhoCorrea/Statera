@@ -2,11 +2,6 @@ import { PedidoAdocao, Tutor, Animal, Questionario } from '../models/Modelos.js'
 
 export const PostAdocaoService = async ({ tutorId, animalId }) => {
 
-    console.log("-----------------------------------------");
-    console.log("ID do Tutor recebido:", tutorId); // ID do Token
-    console.log("ID do Animal recebido:", animalId);
-    console.log("-----------------------------------------");
-
     const [tutor, animal] = await Promise.all([
         Tutor.findByPk(tutorId),
         Animal.findByPk(animalId),
@@ -63,6 +58,8 @@ export const PostAdocaoService = async ({ tutorId, animalId }) => {
     });
 
     const pedidoRetorno = novoPedido.toJSON();
+
+    delete pedidoRetorno.updatedAt;
 
     return pedidoRetorno;
 };

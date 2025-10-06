@@ -60,9 +60,6 @@ export const PatchTutor = async (req, res) => {
         }
     }
 
-    console.log("Controller -> Dados Tutor (Comuns):", dadosComuns);
-    console.log("Controller -> Dados Questionário:", dadosQuestionario);
-
     try {
         const tutorAtualizado = await PatchTutorService(tutorIdUrl, dadosComuns, dadosQuestionario);
 
@@ -75,7 +72,9 @@ export const PatchTutor = async (req, res) => {
         if (error.name === "TutorNaoEncontradoError") {
             return res.status(404).json({ erro: error.message });
         }
-
+        if (error.name === "QuestionarioAtualizacaoSemExistirError") {
+            return res.status(400).json({ erro: error.message });
+        }
         console.error('Erro ao atualizar dados do tutor:', error);
         return res.status(500).json({ erro: "Erro ao atualizar os dados do tutor" });
     }
