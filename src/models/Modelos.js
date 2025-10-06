@@ -23,8 +23,13 @@ const dbPath = path.resolve(projectRoot, process.env.DB_STORAGE || './database.s
 
 // Instancia o Sequelize configurando o uso do banco SQLite
 export const sequelize = new Sequelize({
-    dialect: 'sqlite',
-    storage: dbPath,
+    username: 'postgres',
+    password: 'BVRlXXB4E7LE[@4',
+    database: 'postgres',
+    host: 'db.thmirefcaiqioxbvayic.supabase.co',
+    port: 5432,
+    dialect: 'postgres',
+    logging: false
 })
 
 // Inicializa os modelos, associando cada um à instância do Sequelize
