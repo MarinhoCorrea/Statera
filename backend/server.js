@@ -3,8 +3,15 @@ dotenv.config(); // Pegar as variaveís do .env
 
 import { initDatabase } from './src/database/init.js'; 
 import express from 'express';
+import swaggerUi from 'swagger-ui-express';
+import fs from 'fs'; 
 
 const app = express();
+const swaggerFilePath = './swagger.json';
+const swaggerContent = fs.readFileSync(swaggerFilePath, 'utf8');
+const swaggerDocument = JSON.parse(swaggerContent); 
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Importação das rotas
 import adminRoutes from './src/routes/adminRoutes.js'
