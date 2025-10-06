@@ -280,9 +280,6 @@ Para Rodar a Seed do Administrador:
 
  Driver do PostgreSQL. Permite que o Sequelize se conecte e gerencie dados no banco de dados PostgreSQL, para o banco de dados da nuvem.
  
-**🗃️ sqlite3** 
-
- Driver do SQLite. Um banco de dados leve baseado em arquivos, para o banco de dados local.
 
 [![My Skills](https://skillicons.dev/icons?i=nodejs,npm,sqlite,postgres,sequelize&theme=light)](https://skillicons.dev)
 ---
