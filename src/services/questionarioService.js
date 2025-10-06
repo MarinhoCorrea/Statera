@@ -1,5 +1,7 @@
+// Importa os modelos Questionario e Tutor para manipulação no banco de dados
 import { Questionario, Tutor } from '../models/Modelos.js';
 
+// Lista de campos obrigatórios que devem estar preenchidos no questionário
 const camposObrigatorios = [
     'quantos_animais_possui', 'motivos_para_adotar', 'quem_vai_sustentar_o_animal',
     'numero_adultos_na_casa', 'numero_criancas_na_casa', 'residencia_tipo',
@@ -17,8 +19,10 @@ const camposObrigatorios = [
     'topa_entrar_grupo_adotantes', 'concorda_com_taxa_adocao', 'data_disponivel_para_buscar_animal'
 ];
 
+// Serviço responsável por registrar o questionário preenchido por um tutor
 export const PostQuestionarioService = async (tutorId, dadosQuestionario) => {
 
+    // Valida se todos os campos obrigatórios foram preenchidos corretamente
     for (const campo of camposObrigatorios) {
         if (!(campo in dadosQuestionario) || dadosQuestionario[campo] === null || dadosQuestionario[campo] === '') {
             const error = new Error("Todos os campos obrigatórios devem ser preenchidos corretamente.");
@@ -27,6 +31,7 @@ export const PostQuestionarioService = async (tutorId, dadosQuestionario) => {
         }
     }
 
+    // Verifica se o tutor já preencheu um questionário anteriormente
     const questionarioExistente = await Questionario.findOne({ where: { tutorId } });
 
     if (questionarioExistente) {
@@ -35,6 +40,7 @@ export const PostQuestionarioService = async (tutorId, dadosQuestionario) => {
         throw error;
     }
 
+    // Cria um novo registro de questionário com os dados fornecidos
     const novoQuestionario = await Questionario.create({
         empregado: dadosQuestionario.empregado,
         quantos_animais_possui: dadosQuestionario.quantos_animais_possui,
@@ -47,11 +53,13 @@ export const PostQuestionarioService = async (tutorId, dadosQuestionario) => {
         tutorId: tutorId
     });
 
+    // Converte o resultado para JSON e remove campos internos
     const resultado = novoQuestionario.toJSON();
 
     delete resultado.id;
     delete resultado.createdAt;
     delete resultado.updatedAt;
 
-    return resultado.toJSON();
+    // Retorna os dados do questionário recém-criado
+    return resultado;
 };

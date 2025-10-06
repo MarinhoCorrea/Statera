@@ -1,14 +1,19 @@
+// Importa os modelos Tutor e Questionario para manipulação no banco de dados
 import { Tutor, Questionario } from '../models/Modelos.js';
+// Importa o bcrypt para criptografar senhas
 import bcrypt from 'bcryptjs';
 
+// Serviço para cadastrar um novo tutor
 export const PostTutorService = async (dadosTutor) => {
 
+  // Verifica se todos os campos obrigatórios foram preenchidos
   if (!dadosTutor.nome_completo || !dadosTutor.email || !dadosTutor.senha || !dadosTutor.cidade || !dadosTutor.estado || !dadosTutor.idade || !dadosTutor.telefone) {
     const error = new Error("Todos os campos obrigatórios devem ser preenchidos corretamente.");
     error.name = "DadosIncompletosError";
     throw error;
   }
 
+  // Verifica se já existe um tutor com o mesmo email
   const tutorExistente = await Tutor.findOne({ where: { email: dadosTutor.email } });
   if (tutorExistente) {
     const error = new Error("Email preenchido já está sendo utilizado.");
@@ -16,9 +21,11 @@ export const PostTutorService = async (dadosTutor) => {
     throw error;
   }
 
+  // Criptografa a senha do tutor
   const SALT_ROUNDS = parseInt(process.env.SALT_ROUNDS) || 10;
   const senhaCriptografada = await bcrypt.hash(dadosTutor.senha, SALT_ROUNDS);
 
+  // Cria o novo tutor no banco de dados
   const novoTutor = await Tutor.create({
     nome_completo: dadosTutor.nome_completo,
     senha: senhaCriptografada,
@@ -27,21 +34,28 @@ export const PostTutorService = async (dadosTutor) => {
     estado: dadosTutor.estado,
     idade: dadosTutor.idade,
     telefone: dadosTutor.telefone,
+    cpf: dadosTutor.cpf,
+    endereco: dadosTutor.endereco,
+    bairro: dadosTutor.bairro,
+    cep: dadosTutor.cep,
     instagram: dadosTutor.instagram,
     facebook: dadosTutor.facebook
   });
 
+  // Prepara os dados para retorno, removendo campos sensíveis
   const tutorRetorno = novoTutor.toJSON();
   delete tutorRetorno.administrador;
   delete tutorRetorno.createdAt;
-  delete tutorRetorno.updatedAt
+  delete tutorRetorno.updatedAt;
   delete tutorRetorno.senha;
 
   return tutorRetorno;
 };
 
+// Serviço para buscar os dados de um tutor por ID
 export const GetTutorByIdService = async (tutorId) => {
 
+  // Busca o tutor e seu questionário associado
   const tutor = await Tutor.findByPk(tutorId, {
     include: [{
       model: Questionario,
@@ -51,14 +65,17 @@ export const GetTutorByIdService = async (tutorId) => {
     attributes: { exclude: ['senha', 'administrador'] }
   });
 
+  // Se o tutor não for encontrado, lança erro
   if (!tutor) {
     const error = new Error("Tutor não encontrado");
     error.name = "TutorNaoEncontradoError";
     throw error;
   }
 
+  // Converte os dados do tutor para JSON
   const tutorJSON = tutor.toJSON();
 
+  // Extrai o questionário do tutor, se existir
   let tutorQuestionario = tutorJSON.Questionario;
 
   if (Array.isArray(tutorQuestionario) && tutorQuestionario.length > 0) {
@@ -67,6 +84,7 @@ export const GetTutorByIdService = async (tutorId) => {
     tutorQuestionario = null;
   }
 
+  // Se houver questionário, adiciona ao retorno
   if (tutorQuestionario) {
     tutorJSON.questionario = {
       empregado: tutorQuestionario.empregado,
@@ -82,6 +100,7 @@ export const GetTutorByIdService = async (tutorId) => {
     tutorJSON.questionario = {};
   }
 
+  // Remove campos internos do retorno
   delete tutorJSON.Questionario;
   delete tutorJSON.createdAt;
   delete tutorJSON.updatedAt;
@@ -89,8 +108,10 @@ export const GetTutorByIdService = async (tutorId) => {
   return tutorJSON;
 };
 
+// Serviço para atualizar dados do tutor e/ou seu questionário
 export const PatchTutorService = async (tutorIdUrl, dadosTutor, dadosQuestionario) => {
 
+  // Verifica se há dados para atualizar
   const temDadosTutor = Object.keys(dadosTutor).length > 0;
   const temDadosQuestionario = Object.keys(dadosQuestionario).length > 0;
 
@@ -100,6 +121,7 @@ export const PatchTutorService = async (tutorIdUrl, dadosTutor, dadosQuestionari
     throw error;
   }
 
+  // Busca o tutor e seu questionário
   const tutor = await Tutor.findByPk(tutorIdUrl, {
     include: [{ model: Questionario, required: false }]
   });
@@ -112,6 +134,7 @@ export const PatchTutorService = async (tutorIdUrl, dadosTutor, dadosQuestionari
 
   let tutorAtualizado = tutor;
 
+  // Atualiza os dados do tutor, se fornecidos
   if (temDadosTutor) {
     delete dadosTutor.id;
     delete dadosTutor.administrador;
@@ -124,6 +147,7 @@ export const PatchTutorService = async (tutorIdUrl, dadosTutor, dadosQuestionari
 
   let questionarioAtualizado = null;
 
+  // Atualiza o questionário, se fornecido
   if (temDadosQuestionario) {
     let questionarioExistente = tutor.Questionario;
 
@@ -136,7 +160,7 @@ export const PatchTutorService = async (tutorIdUrl, dadosTutor, dadosQuestionari
     };
   }
 
-
+  // Prepara os dados atualizados para retorno
   const resultado = tutorAtualizado.toJSON();
 
   delete resultado.senha;
@@ -144,6 +168,7 @@ export const PatchTutorService = async (tutorIdUrl, dadosTutor, dadosQuestionari
   delete resultado.createdAt;
   delete resultado.updatedAt;
 
+  // Adiciona os dados do questionário ao retorno, se houver
   if (questionarioAtualizado) {
     let questionarioJSON = questionarioAtualizado.toJSON();
 

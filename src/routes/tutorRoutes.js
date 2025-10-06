@@ -1,6 +1,6 @@
 import express from 'express';
 import { PostTutor, GetTutorById, PatchTutor } from '../controllers/tutorController.js';
-import verifyToken from '../middlewares/verifyToken.js';
+import verifyToken from '../middlewares/verifytoken.js';
 
 const router = express.Router();
 

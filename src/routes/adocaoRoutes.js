@@ -1,6 +1,6 @@
 import express from 'express';
 import { PostAdocao } from '../controllers/adocaoController.js';
-import verifyToken from '../middlewares/verifyToken.js';    
+import verifyToken from '../middlewares/verifytoken.js';    
 
 const router = express.Router();
 
