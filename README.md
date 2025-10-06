@@ -1,6 +1,8 @@
 
 # 🚀 **Statera – ETEC Bento Quirino**
 
+### 🔗 **[Apresentação do Projeto (Slides)](https://www.canva.com/design/DAG1CvcEBIk/iJ_aMpX1Y2QU4xcJaLjRvQ/edit?utm_content=DAG1CvcEBIk&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)**
+
 ### Índice
 
 - [📌 Sobre](#sobre-o-projeto)
@@ -16,12 +18,13 @@
 
 
 ## 📌 **Sobre o Projeto**
+<a name="sobre-o-projeto"></a>
 
-
-A **Statera** é uma API que tem por objetivo ser  utilizada por abrigos de adoção para facilitar os processos decorrentes de uma adoção.
+A **Statera**, desenvolvida em Node.js, é uma API para um sistema de adoção de animais. Nosso objetivo é ser utilizada por abrigos de adoção e ONGs para facilitar os processos decorrentes de uma adoção.
 
 ---
 ## 📦 **Estrutura do Projeto**
+<a name="estrutura-do-projeto"></a>
     📂 Statera/
      │
      
@@ -134,6 +137,7 @@ A **Statera** é uma API que tem por objetivo ser  utilizada por abrigos de ado�
 ---
 
 ## ⚙️ **Como Instalar e Rodar**
+<a name="como-instalar-e-rodar"></a>
 
 ### **Clone o repositório:**
 
@@ -154,14 +158,33 @@ cd Statera
 
 ```
 
-3️⃣ **Iniciar o servidor**:
+3️⃣ **Scripts Disponíveis**:
+
+Para Iniciar o Servidor (Produção):
 
 ```bash
   npm start
 
 ```
 
+Para Iniciar o Servidor (Desenvolvimento):
+
+```bash
+  npm run dev
+
+```
+
+Para Rodar a Seed do Administrador:
+
+```bash
+  npm run seed:admin
+
+```
+
+
+
 ## 💠 **Funcionalidades**
+<a name="funcionalidades"></a>
 
  🔹 Autenticação: Para fazer login no sistema é feita uma verificação que ao aprovada libera o token para acessar as rotas protegidas . 
  
@@ -178,6 +201,7 @@ cd Statera
 ---
 
 ## 📄 **Documentação da API**
+<a name="documentacao-da-api"></a>
 
 
 📌 A API segue o padrão REST e está documentada no Swagger.
@@ -185,6 +209,7 @@ cd Statera
 ---
 
 ### Endpoints Principais
+<a name="endpoints-principais"></a>
 
 | Método | Rota | Descrição |
 | --- | --- | --- |
@@ -205,8 +230,9 @@ cd Statera
 ---
 
 ## 📦 **Dependências**
+<a name="dependencias"></a>
 
-***Este projeto utiliza várias dependências para fornecer funcionalidades como autenticação, manipulação de banco de dados, geração de QR codes e muito mais. Abaixo está uma descrição de cada uma das bibliotecas utilizadas.***
+**Este projeto utiliza várias dependências para fornecer funcionalidades como autenticação, manipulação de banco de dados, geração de QR codes e muito mais. Abaixo está uma descrição de cada uma das bibliotecas utilizadas.**
 
 **🔐 bcryptjs**
 
@@ -236,33 +262,33 @@ cd Statera
 
  Biblioteca para geração de códigos QR. Utilizada para criar QR codes Pix.
 
-**🧩 sequelize** 
-
- ORM (Object-Relational Mapper). Usado para interagir com o banco de dados de forma orientada a objetos, facilitando as operações de CRUD.
-
-**🗃️ sqlite3** 
-
- Driver do SQLite. Um banco de dados leve baseado em arquivos, para o banco de dados local.
 
 **📄 Swagger Ui Express**
 
  Adiciona uma interface de documentação interativa (Swagger UI) à API, facilitando a visualização e teste dos endpoints.
 
-**🛣️ Path**
- Módulo nativo do Node.js usado para lidar com caminhos de arquivos e diretórios de forma consistente entre diferentes sistemas operacionais.
+**🧩 sequelize** 
 
-**🔗 Url**
- Módulo nativo do Node.js usado para parsing (análise) e formatação de URLs, facilitando a manipulação de endereços web.
+ ORM (Object-Relational Mapper). Usado para interagir com o banco de dados de forma orientada a objetos, facilitando as operações de CRUD.
 
 **🆔 Uudi**
-Gera identificadores universais únicos (UUIDs), utilizados para criar IDs únicos e não sequenciais para animais, usuários ou outros recursos.
+
+ Gera identificadores universais únicos (UUIDs), utilizados para criar IDs únicos e não sequenciais para animais, usuários ou outros recursos.
+ 
 
 **🐘 Pg**
-Driver do PostgreSQL. Permite que o Sequelize se conecte e gerencie dados no banco de dados PostgreSQL,para o banco de dados da nuvem.
 
+ Driver do PostgreSQL. Permite que o Sequelize se conecte e gerencie dados no banco de dados PostgreSQL, para o banco de dados da nuvem.
+ 
+**🗃️ sqlite3** 
+
+ Driver do SQLite. Um banco de dados leve baseado em arquivos, para o banco de dados local.
+
+[![My Skills](https://skillicons.dev/icons?i=nodejs,npm,sqlite,postgres,sequelize&theme=light)](https://skillicons.dev)
 ---
 
 ## 👥 **Autores do Projeto**
+<a name="autores-do-projeto"></a>
 
 - Muryllo Jesus Alves Linhares
 - Pedro Marinho Rodriguês Camargo Corrêa
