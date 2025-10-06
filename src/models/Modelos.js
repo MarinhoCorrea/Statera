@@ -6,20 +6,6 @@ import TutorModel from './Usuario.js';
 import QuestionarioModel from './Questionario.js';
 import PedidoAdocaoModel from './PedidoAdocao.js';
 import DoacaoModel from './Doacao.js';
-// Importa utilitários para manipulação de caminhos de arquivos
-import path from 'path';
-import { fileURLToPath } from 'url'
-
-// Obtém o caminho absoluto do arquivo atual
-const __filename = fileURLToPath(import.meta.url);
-// Obtém o diretório onde o arquivo atual está localizado
-const __dirname = path.dirname(__filename); 
-
-// Define o caminho raiz do projeto (dois níveis acima do diretório atual)
-const projectRoot = path.resolve(__dirname, '..', '..');
-
-// Define o caminho do arquivo do banco de dados SQLite, usando variável de ambiente ou padrão
-const dbPath = path.resolve(projectRoot, process.env.DB_STORAGE || './database.sqlite');
 
 // Instancia o Sequelize configurando o uso do banco SQLite
 export const sequelize = new Sequelize({
