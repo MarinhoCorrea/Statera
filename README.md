@@ -3,20 +3,21 @@
 
 ### Índice
 
-- [Sobre](https://www.notion.so/Ideia-de-README-24e4691a9054801cb4a5d0b1109fe87f?pvs=21)
-- [Estrutura do Projeto](https://www.notion.so/Ideia-de-README-24e4691a9054801cb4a5d0b1109fe87f?pvs=21)
-- [Como Instalar e Rodar](https://www.notion.so/Ideia-de-README-24e4691a9054801cb4a5d0b1109fe87f?pvs=21)
-- [Funcionalidades](https://www.notion.so/Ideia-de-README-24e4691a9054801cb4a5d0b1109fe87f?pvs=21)
-- [Documentação da API](https://www.notion.so/Ideia-de-README-24e4691a9054801cb4a5d0b1109fe87f?pvs=21)
-- [Endpoints Principais](https://www.notion.so/Ideia-de-README-24e4691a9054801cb4a5d0b1109fe87f?pvs=21)
-- [Tecnologias utilizadas](https://www.notion.so/Ideia-de-README-24e4691a9054801cb4a5d0b1109fe87f?pvs=21)
-- [Autores do Projeto](https://www.notion.so/Ideia-de-README-24e4691a9054801cb4a5d0b1109fe87f?pvs=21)
+- [📌 Sobre](#sobre-o-projeto)
+- [📦 Estrutura do Projeto](#estrutura-do-projeto)
+- [⚙️ Como Instalar e Rodar](#como-instalar-e-rodar)
+- [💠 Funcionalidades](#funcionalidades)
+- [📄 Documentação da API](#documentacao-da-api)
+- [Endpoints Principais](#endpoints-principais)
+- [📦 Dependências](#dependencias)
+- [👥 Autores do Projeto](#autores-do-projeto)
 
 ## 📌 **Sobre o Projeto**
 
-A **Statera** teve uma iniciativa que conecta animais necessitados com tutores responsáveis, garantindo que cada animal possa encontrar um lar seguro e amoroso.
+A **Statera** é uma API que tem por objetivo ser  utilizada por abrigos de adoção para facilitar os processos decorrentes de uma adoção.
 
-Nosso objetivo é eliminar as barreiras para a adoção, tornando o processo mais transparente, seguro e acessível. Usamos tecnologia para gerenciar o cadastro de animais e tutores, otimizar os processos de adoção e garantir que os pets encontrem as melhores famílias.
+
+.
 
 ---
 
@@ -132,7 +133,7 @@ Nosso objetivo é eliminar as barreiras para a adoção, tornando o processo mai
 
 ---
 
-## 🛠 **Como Instalar e Rodar**
+## ⚙️ **Como Instalar e Rodar**
 
 ### **Clone o repositório:**
 
